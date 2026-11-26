@@ -11,8 +11,9 @@ from sensor_msgs.msg import CameraInfo, Image, JointState, LaserScan
 
 
 class RosIO:
-    def __init__(self, body, cameras, scan_transform):
+    def __init__(self, body, cameras, scan_transform, robot_path='/World/Robot'):
         self.body, self.cameras, self.scan_transform = body, cameras, scan_transform
+        self.robot_path = robot_path.rstrip('/')+'/'
         rclpy.init()
         self.node = rclpy.create_node('isaac_waffle')
         self.clock = self.node.create_publisher(Clock,'/clock',10)
@@ -52,6 +53,10 @@ class RosIO:
         pose.SetTranslateOnly(Gf.Vec3d(*map(float,pos.numpy()[0])))
         sensor = self.scan_transform * pose
         origin = sensor.ExtractTranslation()
+        # The imported base rests about 8.5 degrees nose-down, and the arm policies were trained in that pose.
+        # Keep the 2D lidar level so it does not read the floor 0.9 m ahead as a wall.
+        forward = sensor.TransformDir(Gf.Vec3d(1,0,0))
+        yaw = math.atan2(forward[1],forward[0])
         scan = LaserScan()
         scan.header.stamp,scan.header.frame_id = stamp,'base_scan'
         scan.angle_min,scan.angle_increment = -math.pi,math.tau/400
@@ -60,10 +65,16 @@ class RosIO:
         ranges = []
         for i in range(400):
             a = scan.angle_min+i*scan.angle_increment
-            direction = sensor.TransformDir(Gf.Vec3d(math.cos(a),math.sin(a),0))
+            direction = Gf.Vec3d(math.cos(a+yaw),math.sin(a+yaw),0)
             start = origin + scan.range_min*direction
-            hit = self.query.raycast_closest(tuple(start),tuple(direction),scan.range_max-scan.range_min)
-            ranges.append(hit['distance']+scan.range_min if hit['hit'] else math.inf)
+            nearest = [math.inf]
+            def report(hit):
+                # Skip the robot's own colliders, such as the arm base behind the lidar.
+                if not (hit.rigid_body+'/').startswith(self.robot_path):
+                    nearest[0] = min(nearest[0],hit.distance)
+                return True
+            self.query.raycast_all(tuple(start),tuple(direction),scan.range_max-scan.range_min,report)
+            ranges.append(nearest[0]+scan.range_min)
         scan.ranges = ranges
         self.scan.publish(scan)
 
