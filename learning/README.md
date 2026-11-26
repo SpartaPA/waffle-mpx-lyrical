@@ -2,6 +2,8 @@
 
 이 예제는 Hugging Face 데이터 다운로드부터 RGB 영상과 언어 명령으로 학습한 정책이 Isaac Sim의 관절을 움직이는 데까지 재현합니다. 실행 결과는 기본적으로 `~/waffle_mpx/learning_runs`에 둡니다.
 
+[팔 시작 자세를 바꾼 시연으로 추가 학습하기](pose-evaluation/README.md)에서 관절·그리퍼의 초기 자세와 물체 배치를 바꿔 두 정책을 비교합니다.
+
 ## Hugging Face 데이터로 VLA 학습 후 Isaac에서 검증
 
 이 PC의 Isaac Lab 환경에는 CUDA PyTorch가 설치돼 있습니다. 추가 패키지는 워크스페이스의 `.learning-deps`에 놓았습니다. 새 환경에서는 Isaac Lab 3 환경의 Python으로 [requirements.txt](requirements.txt)를 설치합니다. 시뮬레이터용 Python과 학습용 Python은 각각 `ISAAC_SIM_PYTHON`, `ISAAC_LAB_PYTHON`으로 지정할 수 있습니다.

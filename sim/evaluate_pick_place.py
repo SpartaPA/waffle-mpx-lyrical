@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('scene', type=Path)
 parser.add_argument('checkpoint', type=Path)
 parser.add_argument('output', type=Path)
+parser.add_argument('--varied-poses', action='store_true',
+                    help='Sample arm start angles and tabletop positions independently of the controller')
 parser.add_argument('--layouts', type=int, default=4)
 parser.add_argument('--decisions', type=int, default=48)
 parser.add_argument('--seed', type=int, default=41)
@@ -26,6 +28,8 @@ parser.add_argument('--free-instruction', help='Use a live instruction and obser
 parser.add_argument('--mirror-layout', action='store_true', help='Reflect free-instruction cube positions around y=0.010 m')
 parser.add_argument('--turns', type=int, default=8)
 args = parser.parse_args()
+if args.varied_poses and args.free_instruction:
+    parser.error('--varied-poses is for trajectory training and evaluation')
 if args.free_instruction and (args.controller != 'color' or not 1 <= args.turns <= 32):
     parser.error('Free instructions require the color controller and 1 to 32 turns')
 if args.controller == 'color' and args.parent_vla is None:
@@ -88,7 +92,10 @@ def layouts():
         y = rng.uniform(.020, .026) if args.controller == "vla" else rng.uniform(.032,.037)
         sign = 1 if index % 2 else -1
         xs = rng.uniform(.202,.221,2)
-        if args.controller == 'teacher':
+        if args.varied_poses:
+            y = rng.uniform(.028,.041)
+            xs = rng.uniform(.204,.226,2)
+        elif args.controller == 'teacher':
             xs = rng.uniform(.202,.211,2) + rng.integers(0,2,2)*.017
         elif args.controller in ('color','baseline'):
             xs = rng.uniform(.213,.217,2)
@@ -195,7 +202,10 @@ def run(worker):
         advance(.5)
         run_instruction(args, body, rgb, cubes, controls, wheels, advance, worker, predict, GOAL)
         return
+    pose_rng = np.random.default_rng(np.random.SeedSequence([args.seed, 1]))
     for layout, starts in enumerate(layouts()):
+        pose = (pose_rng.uniform([-.38,-.18,-.16,-.20,.002], [.38,.28,.20,.24,.012])
+                if args.varied_poses else np.zeros(5))
         for selected in ([args.target] if args.target else COLORS):
             other = next(c for c in COLORS if c != selected)
             trial = args.output / f'{layout:02d}-{selected}'
@@ -204,12 +214,18 @@ def run(worker):
             body.set_velocities([0.]*3,[0.]*3)
             body.set_dof_positions(home)
             body.set_dof_velocities(home)
-            body.set_dof_position_targets([0.]*5,dof_indices=controls)
+            if args.varied_poses:
+                body.set_dof_positions(pose.tolist(),dof_indices=controls)
+                right = body.get_dof_indices('gripper_right_joint')
+                body.set_dof_positions([pose[-1]],dof_indices=right)
+                body.set_dof_position_targets([pose[-1]],dof_indices=right)
+            body.set_dof_position_targets(pose.tolist(),dof_indices=controls)
             body.set_dof_velocity_targets([0.,0.],dof_indices=wheels)
             for c,b in cubes.items():
                 b.set_world_poses(starts[c].tolist(), [1.,0.,0.,0.])
                 b.set_velocities([0.]*3,[0.]*3)
             advance(.5)
+            start_joints = body.get_dof_positions(dof_indices=controls).numpy()[0].tolist()
             initial, _ = inspect_pose(cubes, fingers)
             if any(np.linalg.norm(initial[c] - starts[c])>.008 for c in COLORS):
                 raise RuntimeError('Cube did not settle on its intended start')
@@ -291,7 +307,7 @@ def run(worker):
             final, _ = inspect_pose(cubes, fingers)
             Image.fromarray(np.asarray(rgb.get_data())[:,:,:3]).save(trial/'end.png')
             result = dict(layout=layout, instruction=instruction, selected=selected,
-                          initial={c:v.tolist() for c,v in initial.items()}, goal=GOAL.tolist(),
+                          start_joints=start_joints, initial={c:v.tolist() for c,v in initial.items()}, goal=GOAL.tolist(),
                           final={c:v.tolist() for c,v in final.items()}, max_lift_m=max_lift,
                           picked=held[selected], wrong_pick=held[other], stable_s=stable,
                           success=bool(stable>=.499 and not held[other]))

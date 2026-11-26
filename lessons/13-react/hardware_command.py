@@ -270,7 +270,7 @@ class PolicyWorker:
                     "ISAAC_LAB_PYTHON", str(Path.home() / "IsaacLab/.venv/bin/python")
                 ),
                 str(ROOT / "learning/pick_place_worker.py"),
-                str(weights / "waffle-color-73.npz"),
+                env.get("WAFFLE_COLOR_CHECKPOINT", str(weights / "waffle-color-73.npz")),
                 str(weights / "waffle-hf-vla.pt"),
                 "--adaptive",
             ]

@@ -68,6 +68,8 @@ def train():
     p.add_argument('hf', type=Path)
     p.add_argument('demos', type=Path)
     p.add_argument('output', type=Path)
+    p.add_argument('--extra-demos', type=Path, action='append', default=[],
+                   help='Include successful Isaac demonstrations from another seed (repeatable)')
     p.add_argument('--parent-vla',type=Path,required=True)
     p.add_argument('--dataset',type=Path,help='Create a local mixed dataset compatible with policy.py')
     args = p.parse_args()
@@ -75,35 +77,43 @@ def train():
         args.dataset.mkdir(parents=True,exist_ok=False)
     encoder = VLAFeatures(args.parent_vla)
     hidden = []
-    report = json.loads((args.demos/'results.json').read_text())
-    if report['controller'] != 'teacher':
-        raise ValueError('Provide a completed teacher run')
-    steps = report['decisions']
     features, trajectories, sources = [], [], []
-    for row in report['results']:
-        if not row['success']:
-            continue
-        directory = args.demos / f"{row['layout']:02d}-{row['selected']}"
-        rows = [json.loads(line) for line in (directory/'trace.jsonl').read_text().splitlines()]
-        with Image.open(directory/'start.png') as rgb:
-            hidden.append(encoder(rgb,row['instruction'],rows[0]['state']))
-            features.append(image_features(rgb,row['instruction']))
-        actions = [r['action'] for r in rows]
-        if args.dataset:
-            from actions import SCHEMA, NAMES
-            episode = args.dataset/('isaac-'+directory.name)
-            episode.mkdir()
-            (episode/'images').symlink_to(directory.resolve(), target_is_directory=True)
-            (episode/'episode.json').write_text(json.dumps(dict(schema=SCHEMA,state=NAMES,action=NAMES,
-                instruction=row['instruction'],source='Isaac Sim 6.1',seed=report['seed'],initial=row['initial'])))
-            with (episode/'frames.jsonl').open('w') as frames:
-                for r in rows:
-                    frames.write(json.dumps(dict(image=f"images/{r['step']:03d}.jpg",
-                        state=r['state'],action=r['action'],time=r['step']*.25))+'\n')
-        if len(actions) != steps:
-            raise ValueError('Incomplete color trajectory')
-        trajectories.append(actions)
-        sources.append(dict(episode=directory.name, initial=row['initial'], instruction=row['instruction']))
+    steps = None
+    seeds = []
+    for demo_root in [args.demos, *args.extra_demos]:
+        report = json.loads((demo_root/'results.json').read_text())
+        if report['controller'] != 'teacher':
+            raise ValueError('Provide a completed teacher run')
+        if steps is not None and steps != report['decisions']:
+            raise ValueError('Demonstration horizons differ')
+        steps = report['decisions']
+        if report['seed'] in seeds:
+            raise ValueError('Duplicate demonstration seed')
+        seeds.append(report['seed'])
+        for row in report['results']:
+            if not row['success']:
+                continue
+            directory = demo_root / f"{row['layout']:02d}-{row['selected']}"
+            rows = [json.loads(line) for line in (directory/'trace.jsonl').read_text().splitlines()]
+            with Image.open(directory/'start.png') as rgb:
+                hidden.append(encoder(rgb,row['instruction'],rows[0]['state']))
+                features.append(image_features(rgb,row['instruction']))
+            actions = [r['action'] for r in rows]
+            if args.dataset:
+                from actions import SCHEMA, NAMES
+                episode = args.dataset/(f'isaac-{report["seed"]}-'+directory.name if args.extra_demos else 'isaac-'+directory.name)
+                episode.mkdir()
+                (episode/'images').symlink_to(directory.resolve(), target_is_directory=True)
+                (episode/'episode.json').write_text(json.dumps(dict(schema=SCHEMA,state=NAMES,action=NAMES,
+                    instruction=row['instruction'],source='Isaac Sim 6.1',seed=report['seed'],initial=row['initial'])))
+                with (episode/'frames.jsonl').open('w') as frames:
+                    for r in rows:
+                        frames.write(json.dumps(dict(image=f"images/{r['step']:03d}.jpg",
+                            state=r['state'],action=r['action'],time=r['step']*.25))+'\n')
+            if len(actions) != steps:
+                raise ValueError('Incomplete color trajectory')
+            trajectories.append(actions)
+            sources.append(dict(episode=directory.name, seed=report['seed'], start_joints=rows[0]['state'][2:], initial=row['initial'], instruction=row['instruction']))
     if len(sources) < 4 or len({r['instruction'] for r in sources}) < 2:
         raise ValueError('Need at least four complete demonstrations spanning both instructions')
     mean = np.mean(features,axis=0)
@@ -137,7 +147,7 @@ def train():
         np.savez(file,mean=mean,scale=scale,weights=weights,parent_sha256=encoder.digest)
     manifest = dict(method='phase-conditioned ridge behavioral cloning', steps=steps,
                     checkpoint_sha256=hashlib.sha256(args.output.read_bytes()).hexdigest(),
-                    seed=report['seed'],parent_sha256=encoder.digest, hf=hf_sources, color_demos=sources)
+                    seed=seeds[0],seeds=seeds,parent_sha256=encoder.digest, hf=hf_sources, color_demos=sources)
     args.output.with_suffix('.json').write_text(json.dumps(manifest,indent=2)+'\n')
     print(f'Trained on {len(hf_sources)} HF and {len(sources)} successful color episodes.')
 

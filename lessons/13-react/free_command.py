@@ -44,7 +44,7 @@ cmd = [
     python,
     str(root / "sim/evaluate_pick_place.py"),
     str(args.scene),
-    str(weights / "waffle-color-73.npz"),
+    os.environ.get("WAFFLE_COLOR_CHECKPOINT", str(weights / "waffle-color-73.npz")),
     str(args.output),
     "--controller",
     "color",
