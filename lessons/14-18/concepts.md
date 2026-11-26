@@ -11,6 +11,8 @@
 <a id="waffle_terms_0_1"></a>
 ### 로봇이 보고 판단하고 움직인다는 뜻
 
+![로봇이 보고 판단하고 움직인다는 뜻](media/concepts/0_1.png)
+
 [통합 교안 2쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_1)
 
 - **관측** 관측(observation)은 한 시점에 센서로 얻은 값입니다. 카메라는 밝기와 색을, 관절 센서는 각도를 측정합니다.
@@ -21,6 +23,8 @@
 
 <a id="waffle_terms_0_2"></a>
 ### LLM, VLM, VLA의 입출력
+
+![LLM, VLM, VLA의 입출력](media/concepts/0_2.png)
 
 [통합 교안 3쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_2)
 
@@ -33,6 +37,8 @@
 <a id="waffle_terms_0_3"></a>
 ### 실제 로봇의 어느 부분을 모사할까요?
 
+![실제 로봇의 어느 부분을 모사할까요?](media/concepts/0_3.png)
+
 [통합 교안 4쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_3)
 
 - **차체와 팔** Waffle은 이동 차체, OpenMANIPULATOR-X는 관절식 로봇팔입니다. 그리퍼(gripper)는 팔 끝에서 손가락 사이의 간격을 바꿔 물체를 잡습니다.
@@ -43,6 +49,8 @@
 
 <a id="waffle_terms_0_4"></a>
 ### 코드와 데이터를 같은 상태로 준비합니다
+
+![코드와 데이터를 같은 상태로 준비합니다](media/concepts/0_4.png)
 
 [통합 교안 5쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_4)
 
@@ -55,6 +63,8 @@
 <a id="waffle_terms_0_5"></a>
 ### 파일 이름과 확장자로 기록을 읽습니다
 
+![파일 이름과 확장자로 기록을 읽습니다](media/concepts/0_5.png)
+
 [통합 교안 6쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_5)
 
 - **JSON과 JSONL** JSON은 키와 값을 묶은 구조화 문서입니다. JSONL은 한 줄마다 독립 JSON이 있어서 행동이 생길 때마다 한 행씩 추가할 수 있습니다.
@@ -65,6 +75,8 @@ cases.json은 시험 입력, manual.json은 규칙 원문, trace.jsonl은 시간
 
 <a id="waffle_terms_0_6"></a>
 ### 터미널과 코드 조각에서 반복되는 표기
+
+![터미널과 코드 조각에서 반복되는 표기](media/concepts/0_6.png)
 
 [통합 교안 7쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_0_6)
 
@@ -83,6 +95,8 @@ len은 개수를, str은 문자열 표현을 구합니다. --color와 --version�
 <a id="waffle_terms_14_1"></a>
 ### ROS 2에서 프로그램이 대화하는 세 방식
 
+![ROS 2에서 프로그램이 대화하는 세 방식](media/concepts/14_1.png)
+
 [통합 교안 11쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_14_1)
 
 - **노드와 토픽** ROS 2는 로봇 프로그램 간 통신을 지원합니다. 노드(node)는 통신의 주체입니다. 토픽(topic)에서는 발행자가 값을 보내면 구독자들이 연속으로 받습니다.
@@ -93,6 +107,8 @@ len은 개수를, str은 문자열 표현을 구합니다. --color와 --version�
 
 <a id="waffle_terms_14_2"></a>
 ### 월드 좌표와 관절각은 어떻게 다를까요?
+
+![월드 좌표와 관절각은 어떻게 다를까요?](media/concepts/14_2.png)
 
 [통합 교안 12쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_14_2)
 
@@ -105,6 +121,8 @@ len은 개수를, str은 문자열 표현을 구합니다. --color와 --version�
 <a id="waffle_terms_14_3"></a>
 ### 명령 계약은 수치에 의미를 붙입니다
 
+![명령 계약은 수치에 의미를 붙입니다](media/concepts/14_3.png)
+
 [통합 교안 13쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_14_3)
 
 - **스키마와 버전** 스키마(schema)는 데이터의 필드·순서·형식에 관한 약속입니다. version이 command.v1이면 해당 형식을 사용합니다. request_id는 요청 하나를 식별합니다.
@@ -116,6 +134,8 @@ len은 개수를, str은 문자열 표현을 구합니다. --color와 --version�
 <a id="waffle_terms_14_4"></a>
 ### 수락, 피드백, 취소, 종료의 시간차
 
+![수락, 피드백, 취소, 종료의 시간차](media/concepts/14_4.png)
+
 [통합 교안 14쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_14_4)
 
 - **목표와 핸들** Goal은 서버가 실행할 목표입니다. 수락하면 그 목표를 가리키는 handle을 받습니다. 여러 목표가 오가도 이 핸들로 원하는 요청의 결과를 조회합니다.
@@ -126,6 +146,8 @@ wait()의 timeout은 기다릴 시간을 넘겼다는 뜻입니다. 결과가 �
 
 <a id="waffle_terms_14_5"></a>
 ### 모의 제어기로 무엇을 확인할 수 있을까요?
+
+![모의 제어기로 무엇을 확인할 수 있을까요?](media/concepts/14_5.png)
 
 [통합 교안 15쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_14_5)
 
@@ -145,7 +167,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_1"></a>
 ### 영상과 언어를 숫자로 비교하는 원리
 
-[통합 교안 24쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_1)
+![영상과 언어를 숫자로 비교하는 원리](media/concepts/15_1.png)
+
+[통합 교안 26쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_1)
 
 - **모달리티** 모달리티(modality)는 정보의 형태입니다. 사진과 문장은 같은 물체를 다른 방식으로 표현합니다. 멀티모달 모델은 여러 형태의 정보를 함께 처리합니다.
 - **임베딩** 임베딩(embedding)은 대상을 숫자 벡터로 나타낸 것입니다. 공통 공간에서는 서로 다른 입력의 벡터를 같은 기준으로 비교합니다. 일반적인 VLM은 이 표현을 학습합니다.
@@ -156,7 +180,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_2"></a>
 ### 픽셀에서 파란색 마스크를 만드는 계산
 
-[통합 교안 25쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_2)
+![픽셀에서 파란색 마스크를 만드는 계산](media/concepts/15_2.png)
+
+[통합 교안 27쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_2)
 
 - **픽셀과 채널** 픽셀(pixel, px)은 영상 격자의 한 칸입니다. RGB 영상은 그 칸마다 빨강·초록·파랑 채널 값을 갖습니다. 같은 색도 밝기에 따라 세 수의 크기가 달라집니다.
 - **코사인 유사도** 두 벡터의 내적을 각 벡터 길이의 곱으로 나눕니다. 방향이 같으면 1입니다. 파랑 축과 [0, 0, 100]의 유사도는 1이고 [100, 0, 0]의 유사도는 0입니다.
@@ -167,7 +193,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_3"></a>
 ### 깊이와 카메라 보정값이 필요한 이유
 
-[통합 교안 26쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_3)
+![깊이와 카메라 보정값이 필요한 이유](media/concepts/15_3.png)
+
+[통합 교안 28쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_3)
 
 - **광축 깊이** RGB-D에서 D는 깊이입니다. 여기서 Z는 카메라 정면 축을 따라 잰 거리(m)입니다. 영상 가장자리에서는 광축 깊이와 카메라에서 점까지의 직선거리가 다릅니다.
 - **초점거리와 주점** 내부 파라미터 fx, fy는 픽셀 단위 초점거리이고 cx, cy는 광축이 영상면을 지나는 위치입니다. 주점에서 멀어진 픽셀 수가 시선의 방향을 결정합니다.
@@ -178,7 +206,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_4"></a>
 ### 카메라의 점을 로봇이 쓰는 점으로 옮깁니다
 
-[통합 교안 27쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_4)
+![카메라의 점을 로봇이 쓰는 점으로 옮깁니다](media/concepts/15_4.png)
+
+[통합 교안 29쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_4)
 
 - **외부 보정** 외부 파라미터는 두 좌표계 사이의 회전 R과 위치 이동 t입니다. optical_to_world는 광학 좌표의 점을 월드 좌표로 표현하는 변환입니다.
 - **행렬과 점** 행렬은 숫자를 행과 열에 배치한 변환입니다. [X,Y,Z,1]처럼 끝에 1을 붙이면 회전과 평행이동을 한 번의 행렬 곱으로 적용할 수 있습니다.
@@ -189,7 +219,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_5"></a>
 ### 스테레오 영상에서 깊이가 나오는 이유
 
-[통합 교안 28쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_5)
+![스테레오 영상에서 깊이가 나오는 이유](media/concepts/15_5.png)
+
+[통합 교안 30쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_5)
 
 - **좌우 카메라** 스테레오는 떨어진 두 시점에서 같은 장면을 봅니다. 두 카메라 중심 사이의 거리를 베이스라인 B라고 합니다. 로봇 성능을 비교할 때의 기준선과 문맥이 다릅니다.
 - **시차와 깊이** 정렬한 좌우 영상에서 같은 점의 가로 위치 차이가 시차 d입니다. 이상적인 경우 Z=fB/d입니다. 같은 장치에서 가까운 물체는 시차가 더 큽니다.
@@ -200,7 +232,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_15_6"></a>
 ### 평균, 중앙값, 노름을 어떻게 읽을까요?
 
-[통합 교안 29쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_6)
+![평균, 중앙값, 노름을 어떻게 읽을까요?](media/concepts/15_6.png)
+
+[통합 교안 31쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_15_6)
 
 - **벡터와 노름** 벡터는 순서가 있는 숫자 묶음입니다. 유클리드 노름은 각 성분의 제곱을 더해 제곱근을 취한 길이입니다. [3,4]의 길이는 5입니다.
 - **내적** 내적은 대응하는 성분끼리 곱해 더한 값입니다. [1,2,3]과 파랑 축 [0,0,1]의 내적은 3입니다. 두 벡터의 길이로 나누면 코사인 유사도가 됩니다.
@@ -218,7 +252,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_16_1"></a>
 ### 시연으로 정책을 학습한다는 뜻
 
-[통합 교안 38쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_1)
+![시연으로 정책을 학습한다는 뜻](media/concepts/16_1.png)
+
+[통합 교안 42쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_1)
 
 - **정책** 정책(policy)은 관측과 지시에서 행동을 고르는 규칙 또는 모델입니다. Waffle에서는 시작 영상, 지시, 로봇 상태를 받아 목표 관절들의 시간 순서를 냅니다.
 - **모방학습** 모방학습은 시연자가 어떤 상황에서 어떤 행동을 했는지 배웁니다. 행동 복제는 같은 관측에서 시연 행동에 가까운 출력을 내도록 모델의 값을 조정합니다.
@@ -229,7 +265,9 @@ Action의 Feedback과 제어 루프의 피드백은 맥락이 다릅니다. 전�
 <a id="waffle_terms_16_2"></a>
 ### 인코더, 은닉값, 헤드를 차례로 읽습니다
 
-[통합 교안 39쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_2)
+![인코더, 은닉값, 헤드를 차례로 읽습니다](media/concepts/16_2.png)
+
+[통합 교안 43쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_2)
 
 - **인코더** 인코더(encoder)는 이미지와 문장을 계산 가능한 특징으로 바꿉니다. 부모 모델은 SmolVLM2 계열의 시각·언어 표현과 정규화한 로봇 상태를 함께 사용합니다.
 - **은닉 표현** 은닉값(hidden representation)은 모델 내부 층의 출력입니다. 부모 행동 헤드의 마지막 층 앞 값을 꺼내 벡터 길이로 나누면 특징의 방향을 유지하며 크기를 맞출 수 있습니다.
@@ -240,7 +278,9 @@ np.einsum의 i,itj→tj에서 공통 첨자 i를 따라 곱해 더합니다. 남
 <a id="waffle_terms_16_3"></a>
 ### 단위가 다른 행동을 한 배열에 담습니다
 
-[통합 교안 40쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_3)
+![단위가 다른 행동을 한 배열에 담습니다](media/concepts/16_3.png)
+
+[통합 교안 44쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_3)
 
 - **행동 공간** 행동 공간은 허용하는 명령의 종류와 범위입니다. 배열 순서는 차체 선속도(m/s), 회전속도(rad/s), 팔 절대각 4개(rad), 그리퍼 위치(m)입니다.
 - **정규화** 정규화는 서로 다른 단위와 범위를 공통 척도로 바꿉니다. 최솟값 L과 최댓값 H를 [−1,1]에 대응시키면 실제 중간값은 0으로 표현됩니다.
@@ -251,7 +291,9 @@ np.einsum의 i,itj→tj에서 공통 첨자 i를 따라 곱해 더합니다. 남
 <a id="waffle_terms_16_4"></a>
 ### 행동 후보가 한 번에 관절로 가지 않는 이유
 
-[통합 교안 41쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_4)
+![행동 후보가 한 번에 관절로 가지 않는 이유](media/concepts/16_4.png)
+
+[통합 교안 45쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_4)
 
 - **어댑터** 어댑터(adapter)는 모델 출력을 제어기 입력 형식에 맞춥니다. adapt()는 축 순서, 일곱 값의 유한성, 범위, 차체 정지 조건을 검사합니다.
 - **포화와 속도 제한** clip은 값을 범위 안에 묶습니다. 실행기는 전체 범위를 제한하고 현재 위치와 목표의 차이도 제한합니다. 0.35 rad/s 제한이면 0.25초당 최대 0.0875 rad 움직입니다.
@@ -262,7 +304,9 @@ np.einsum의 i,itj→tj에서 공통 첨자 i를 따라 곱해 더합니다. 남
 <a id="waffle_terms_16_5"></a>
 ### LoRA가 학습할 값의 수를 줄이는 원리
 
-[통합 교안 42쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_5)
+![LoRA가 학습할 값의 수를 줄이는 원리](media/concepts/16_5.png)
+
+[통합 교안 46쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_5)
 
 - **미세조정** 미세조정(fine-tuning)은 기존 모델을 새 과제 데이터에 맞추는 학습입니다. 동결(freeze)은 선택한 가중치를 학습 중 그대로 두는 것입니다.
 - **저랭크** 랭크(rank)는 행렬이 표현하는 독립적인 방향 수입니다. 큰 변화 행렬을 폭 r인 두 작은 행렬의 곱 BA로 나타내면 변화의 랭크는 최대 r입니다.
@@ -273,7 +317,9 @@ np.einsum의 i,itj→tj에서 공통 첨자 i를 따라 곱해 더합니다. 남
 <a id="waffle_terms_16_6"></a>
 ### 슬롯과 관계 토큰으로 논문 그림을 읽습니다
 
-[통합 교안 43쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_6)
+![슬롯과 관계 토큰으로 논문 그림을 읽습니다](media/concepts/16_6.png)
+
+[통합 교안 47쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_6)
 
 - **토큰** 토큰(token)은 모델이 한 단위로 처리하는 입력 조각입니다. 언어에서는 단어나 단어의 일부, 영상에서는 영역에서 추출한 특징을 토큰으로 표현할 수 있습니다.
 - **슬롯과 어텐션** 슬롯(slot)은 영상 속 대상을 요약하는 표현입니다. 어텐션(attention)은 관련 있는 입력 특징에 더 큰 가중치를 주어 어떤 정보를 모을지 결정합니다.
@@ -284,7 +330,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_16_7"></a>
 ### 시간에 따라 로봇을 제어하는 두 방식
 
-[통합 교안 44쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_7)
+![시간에 따라 로봇을 제어하는 두 방식](media/concepts/16_7.png)
+
+[통합 교안 48쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_16_7)
 
 - **열린 루프** 열린 루프(open loop)는 시작 때 정한 행동을 이후 관측에 따라 다시 계획하지 않고 진행합니다. 색상 운반 정책이 첫 영상에서 92개 목표를 정하는 층이 이 방식입니다.
 - **닫힌 루프** 닫힌 루프(closed loop)는 현재 관측을 다음 명령에 반영합니다. 이 실행기는 매 시점 관절 위치 q를 다시 읽고 q에서 허용한 이동량만큼 다음 목표를 적용합니다.
@@ -303,7 +351,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_17_1"></a>
 ### RAG에서 검색과 생성이 맡는 일
 
-[통합 교안 55쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_1)
+![RAG에서 검색과 생성이 맡는 일](media/concepts/17_1.png)
+
+[통합 교안 61쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_1)
 
 - **RAG** Retrieval-Augmented Generation은 외부 문서에서 질문에 맞는 근거를 찾아 모델 입력에 붙인 뒤 답을 생성하는 방식입니다. 규칙 문서를 바꾸면 검색되는 내용도 바뀝니다.
 - **질의와 문서 조각** 질의(query)는 찾으려는 질문입니다. 청크(chunk)는 독립적으로 검색할 문서 조각입니다. 각 조각의 ID, 버전, 원문을 보관해야 근거를 되짚을 수 있습니다.
@@ -314,7 +364,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_17_2"></a>
 ### 질문에 가까운 근거를 고르는 원리
 
-[통합 교안 56쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_2)
+![질문에 가까운 근거를 고르는 원리](media/concepts/17_2.png)
+
+[통합 교안 62쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_2)
 
 - **희소 검색** 희소 검색은 단어 일치 같은 제한된 특징을 사용합니다. retrieve()에서는 질문과 각 문서의 검색어 집합이 공유하는 서로 다른 단어 수가 점수입니다.
 - **밀집 검색** 밀집 검색은 문장이나 문서를 학습한 숫자 벡터로 나타내고 가까운 것을 찾습니다. 동의어를 연결할 수 있지만 비슷한 구버전 문서가 섞일 수도 있습니다.
@@ -325,7 +377,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_17_3"></a>
 ### 근거가 있다는 사실을 어디까지 믿을까요?
 
-[통합 교안 57쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_3)
+![근거가 있다는 사실을 어디까지 믿을까요?](media/concepts/17_3.png)
+
+[통합 교안 63쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_3)
 
 - **인용과 근거** 근거(evidence)는 판단을 뒷받침하는 자료입니다. 인용(quote)은 원문의 일부를 옮긴 문구입니다. answer()는 반환 ID와 해당 원문의 부분 문자열을 대조합니다.
 - **반환 상태** cited는 ID와 인용 대조 통과, unsupported는 인용 검증 실패, no_evidence는 검색된 근거가 없다는 뜻입니다. 올바른 문장을 인용해도 질문과 무관할 수 있습니다.
@@ -336,7 +390,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_17_4"></a>
 ### 검색 성공률과 답변 정확도의 분모
 
-[통합 교안 58쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_4)
+![검색 성공률과 답변 정확도의 분모](media/concepts/17_4.png)
+
+[통합 교안 64쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_4)
 
 - **근거 포함률** 이 예에서는 질문마다 필요한 근거가 하나입니다. 상위 k개 안에 그 근거가 들어온 질문 수를 전체 질문 수로 나누면 검색의 적중 비율을 얻습니다.
 - **조건부 정확도** 조건부 정확도는 특정 조건을 충족한 사례만 분모로 삼습니다. 근거가 들어온 질문 8건 중 6건에 정답을 썼다면 그 조건에서 6/8=75%입니다.
@@ -347,7 +403,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_17_5"></a>
 ### 연구 자료에서 모델과 평가 이름을 구분합니다
 
-[통합 교안 59쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_5)
+![연구 자료에서 모델과 평가 이름을 구분합니다](media/concepts/17_5.png)
+
+[통합 교안 65쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_17_5)
 
 - **학회와 프리프린트** ICRA는 로봇·자동화 학회이고 CVPR은 컴퓨터 비전·패턴인식 학회입니다. 프리프린트는 연구자가 공개한 원고입니다. 공개 날짜와 학회 발표 여부를 따로 확인합니다.
 - **모델과 방법** SmolVLM2는 시각·언어 모델 계열, SlotVLA는 물체와 관계 표현을 쓰는 연구 모델입니다. Embodied RAG++는 장면의 물체와 가능한 기능을 고려해 근거를 찾는 연구입니다.
@@ -366,7 +424,9 @@ SlotVLA 그림에서 그릇 자체를 나타내는 경로와 집게가 그릇에
 <a id="waffle_terms_18_1"></a>
 ### 플래너가 작업 순서를 표현하는 방법
 
-[통합 교안 68쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_1)
+![플래너가 작업 순서를 표현하는 방법](media/concepts/18_1.png)
+
+[통합 교안 76쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_1)
 
 - **하위 작업** 플래너(planner)는 목표를 실행 가능한 하위 작업들의 계획으로 바꿉니다. ‘운반 후 사진’은 운반과 촬영 두 작업이며 촬영에는 운반 완료 조건이 붙습니다.
 - **그래프와 의존성** 그래프의 노드(node)는 작업 하나이고 방향이 있는 간선(edge)은 선행 관계입니다. depends_on=[0]은 그 턴이 0번 턴의 완료에 의존한다는 뜻입니다.
@@ -377,7 +437,9 @@ A가 B를 기다리고 B도 A를 기다리면 시작할 작업이 없습니다. 
 <a id="waffle_terms_18_2"></a>
 ### 검증 실험에서 바꾸는 것과 고정하는 것
 
-[통합 교안 69쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_2)
+![검증 실험에서 바꾸는 것과 고정하는 것](media/concepts/18_2.png)
+
+[통합 교안 77쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_2)
 
 - **벤치마크** 벤치마크(benchmark)는 같은 조건으로 여러 방법을 비교하는 시험 집합과 절차입니다. 수업의 고정 사례는 지시문과 기대 종료 사유를 함께 담습니다.
 - **기준선과 검증 경로** baseline은 비교의 기준이 되는 방법입니다. guarded는 같은 입력에 추가 검사를 적용하는 경로입니다. 둘의 입력과 정답을 고정해야 차이의 원인을 좁힐 수 있습니다.
@@ -388,7 +450,9 @@ expected는 기대한 종료 사유, observed는 실제 관측한 종료 사유�
 <a id="waffle_terms_18_3"></a>
 ### 첫 실패 단계를 로그에서 찾는 법
 
-[통합 교안 70쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_3)
+![첫 실패 단계를 로그에서 찾는 법](media/concepts/18_3.png)
+
+[통합 교안 78쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_3)
 
 - **계획과 인식** ground.ambiguous는 대상 해석이 하나로 정해지지 않았다는 뜻입니다. plan.cycle은 실행 가능한 선후 관계를 만들지 못한 상태입니다.
 - **자료와 계약** rag.no_evidence는 요청 버전의 관련 근거를 찾지 못한 상태입니다. contract.frame_unit_version은 좌표계·단위·버전 중 계약 불일치, contract.stale은 오래된 관측입니다.
@@ -399,7 +463,9 @@ expected는 기대한 종료 사유, observed는 실제 관측한 종료 사유�
 <a id="waffle_terms_18_4"></a>
 ### 파지, 안착, 성공을 각각 어떻게 셀까요?
 
-[통합 교안 71쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_4)
+![파지, 안착, 성공을 각각 어떻게 셀까요?](media/concepts/18_4.png)
+
+[통합 교안 79쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_4)
 
 - **파지와 오파지** 파지(pick)는 목표 물체를 잡아 드는 행동입니다. 실습은 높이 증가와 손끝 거리를 함께 봅니다. wrong_pick은 다른 물체를 들어 올렸는지를 표시합니다.
 - **안착과 오차** 안착(settle)은 목표 위에서 안정된 상태가 유지되는 것입니다. 중심 오차는 최종 물체 중심과 목표 중심의 수평 거리입니다. 한 프레임의 겹침만으로는 부족합니다.
@@ -410,7 +476,9 @@ expected는 기대한 종료 사유, observed는 실제 관측한 종료 사유�
 <a id="waffle_terms_18_5"></a>
 ### 새 배치에서의 성공은 어떻게 확인할까요?
 
-[통합 교안 72쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_5)
+![새 배치에서의 성공은 어떻게 확인할까요?](media/concepts/18_5.png)
+
+[통합 교안 80쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_5)
 
 - **일반화** 일반화는 학습에 쓰지 않은 조건에서도 과제를 수행하는 능력입니다. 미관측(held-out) 배치는 훈련과 겹치지 않도록 떼어 둔 시험 배치입니다.
 - **교란과 통제** 교란(perturbation)은 조명·카메라·배치 등 한 조건의 변화입니다. 같은 지시를 유지하고 배치만 반전하면 왼쪽의 색이 바뀌어도 위치 지시를 따르는지 확인할 수 있습니다.
@@ -421,7 +489,9 @@ expected는 기대한 종료 사유, observed는 실제 관측한 종료 사유�
 <a id="waffle_terms_18_6"></a>
 ### 한 턴, 실행 예산, 종료 사유를 구분합니다
 
-[통합 교안 73쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_6)
+![한 턴, 실행 예산, 종료 사유를 구분합니다](media/concepts/18_6.png)
+
+[통합 교안 81쪽](https://docs.google.com/presentation/d/1FeQRLIcLisJhND0R2zncbqJo7Z8gOo95KewRqR4kKms/edit#slide=id.waffle_terms_18_6)
 
 - **턴과 예산** 턴(turn)은 실행기가 다음 행동을 골라 처리하는 한 차례입니다. 예산(budget)은 허용하는 최대 턴 수입니다. 한 번의 운반 턴 안에서 여러 관절 목표를 적용할 수 있습니다.
 - **모델 호출과 추론** planner_calls는 계획 모델에 요청한 횟수이고 vla_inferences는 행동 정책에 예측을 요청한 횟수입니다. 92개 목표를 한꺼번에 예측하면 행동 추론은 한 번입니다.
