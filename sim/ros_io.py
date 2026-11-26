@@ -31,6 +31,10 @@ class RosIO:
         self.last_drive = -1.
         self.now = 0.
         self.wheels = body.get_dof_indices(['wheel_left_joint','wheel_right_joint'])
+        # PhysX reports continuous wheel joints wrapped to [-2pi, 2pi]. diff_drive_controller integrates
+        # positions, so each 4pi jump would add about 82 degrees of false yaw. Publish unwrapped angles.
+        self.wheel_ids = [body.dof_names.index(n) for n in ('wheel_left_joint','wheel_right_joint')]
+        self.wheel_raw = self.wheel_angle = None
 
     def arm(self, msg):
         if msg.name and len(msg.position)==len(msg.name) and np.isfinite(msg.position).all():
@@ -97,7 +101,16 @@ class RosIO:
             rclpy.spin_once(self.node,timeout_sec=0.)
         if now-self.last_drive > .5:
             self.body.set_dof_velocity_targets([0.,0.],dof_indices=self.wheels)
-        joints = JointState(name=self.body.dof_names,position=self.body.get_dof_positions().numpy()[0].tolist(),
+        positions = np.array(self.body.get_dof_positions().numpy()[0],dtype=float)
+        raw = positions[self.wheel_ids]
+        if self.wheel_raw is None:
+            self.wheel_angle = raw.copy()
+        else:
+            delta = raw-self.wheel_raw
+            self.wheel_angle += delta-np.round(delta/math.tau)*math.tau
+        self.wheel_raw = raw
+        positions[self.wheel_ids] = self.wheel_angle
+        joints = JointState(name=self.body.dof_names,position=positions.tolist(),
                             velocity=self.body.get_dof_velocities().numpy()[0].tolist())
         joints.header.stamp = stamp
         self.feedback.publish(joints)

@@ -18,7 +18,7 @@ import omni.replicator.core as rep
 import omni.kit.app
 import omni.timeline
 import omni.usd
-from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdPhysics
+from pxr import Gf, PhysxSchema, Sdf, Usd, UsdGeom, UsdLux, UsdPhysics, UsdShade
 from isaacsim.asset.importer.urdf import URDFImporter, URDFImporterConfig
 from isaacsim.core.experimental.prims import Articulation
 from ros_io import RosIO
@@ -41,6 +41,35 @@ def fixed_transform(frame):
         matrix *= transform
         frame = joint.find('parent').get('link')
     return matrix
+
+
+def contact_material(stage, name, friction, combine):
+    material = UsdShade.Material.Define(stage, '/World/PhysicsMaterials/'+name)
+    physics = UsdPhysics.MaterialAPI.Apply(material.GetPrim())
+    physics.CreateStaticFrictionAttr(friction)
+    physics.CreateDynamicFrictionAttr(friction)
+    physics.CreateRestitutionAttr(0.)
+    PhysxSchema.PhysxMaterialAPI.Apply(material.GetPrim()).CreateFrictionCombineModeAttr(combine)
+    return material
+
+
+def bind_contacts(stage, prims, base):
+    # The real casters are ball casters, but the URDF models them as boxes that drag on the floor
+    # and make the wheels slip while turning. Give tires grip and make the low base contacts frictionless.
+    tire = contact_material(stage, 'tire', 1., 'max')
+    caster = contact_material(stage, 'caster', 0., 'min')
+    bounds = UsdGeom.BBoxCache(Usd.TimeCode.Default(), [UsdGeom.Tokens.default_, UsdGeom.Tokens.guide])
+    for prim in prims:
+        if not prim.HasAPI(UsdPhysics.CollisionAPI):
+            continue
+        parent = prim.GetParent()
+        if parent.GetName().startswith('wheel_'):
+            material = tire
+        elif str(parent.GetPath()) == base and bounds.ComputeWorldBound(prim).ComputeAlignedRange().GetMin()[2] < .01:
+            material = caster
+        else:
+            continue
+        UsdShade.MaterialBindingAPI.Apply(prim).Bind(material, UsdShade.Tokens.weakerThanDescendants, 'physics')
 
 
 def camera_reader(stage, base, stream):
@@ -84,6 +113,7 @@ def build():
     base = next(p for p in prims if p.HasAPI(UsdPhysics.RigidBodyAPI) and p.GetName()=='base_footprint')
     base = str(base.GetPath())
     UsdPhysics.Scene.Define(stage,'/World/Physics')
+    bind_contacts(stage, prims, base)
     UsdLux.DomeLight.Define(stage,'/World/Light').CreateIntensityAttr(800)
     boxes = [('Floor',(0,0,-.05),(6,6,.1)),('Back',(-2,0,.22),(.1,4,.44)),
              ('Front',(2,0,.22),(.1,4,.44)),('Left',(0,2,.22),(4,.1,.44)),
