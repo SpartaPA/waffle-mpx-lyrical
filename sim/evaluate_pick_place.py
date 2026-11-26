@@ -22,7 +22,11 @@ parser.add_argument('--parent-vla',type=Path,help='Original HF VLA checkpoint us
 parser.add_argument('--target', choices=['red','blue'], help='Run only the requested cube color')
 parser.add_argument('--show', action='store_true', help='Open the Isaac Sim viewport')
 parser.add_argument('--record-frames', action='store_true', help='Save the RGB frame at each policy step')
+parser.add_argument('--free-instruction', help='Use a live instruction and observation loop on this scene')
+parser.add_argument('--turns', type=int, default=8)
 args = parser.parse_args()
+if args.free_instruction and (args.controller != 'color' or not 1 <= args.turns <= 32):
+    parser.error('Free instructions require the color controller and 1 to 32 turns')
 if args.controller == 'color' and args.parent_vla is None:
     parser.error('--controller color requires --parent-vla')
 if min(args.layouts, args.decisions) < 1:
@@ -96,8 +100,8 @@ def inspect_pose(cubes, fingers):
     return {c: position(b) for c, b in cubes.items()}, fingertips(fingers)
 
 
-def predict(worker, frame_path, state, instruction):
-    observation = dict(rgb=str(frame_path), state=state, instruction=instruction)
+def predict(worker, frame_path, state, instruction, continuous=False):
+    observation = dict(rgb=str(frame_path), state=state, instruction=instruction, continuous=continuous)
     worker.stdin.write(json.dumps(observation)+'\n')
     worker.stdin.flush()
     response = worker.stdout.readline()
@@ -177,6 +181,14 @@ def run(worker):
     results = []
     if worker and json.loads(worker.stdout.readline()) != {'ready': True}:
         raise RuntimeError('Could not initialize policy')
+    if args.free_instruction:
+        from instruction_loop import run_instruction
+        for color, xyz in next(layouts()).items():
+            cubes[color].set_world_poses(xyz.tolist(), [1.,0.,0.,0.])
+            cubes[color].set_velocities([0.]*3,[0.]*3)
+        advance(.5)
+        run_instruction(args, body, rgb, cubes, controls, wheels, advance, worker, predict, GOAL)
+        return
     for layout, starts in enumerate(layouts()):
         for selected in ([args.target] if args.target else COLORS):
             other = next(c for c in COLORS if c != selected)
@@ -301,6 +313,8 @@ try:
         command = [python,str(root/'learning/pick_place_worker.py'),str(args.checkpoint.resolve())]
         if args.controller == 'color':
             command.append(str(args.parent_vla.resolve()))
+            if args.free_instruction:
+                command.append("--adaptive")
         with subprocess.Popen(command,
                               stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True,env=env) as worker:
             try:

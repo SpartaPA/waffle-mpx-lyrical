@@ -1,5 +1,7 @@
 # 13강 · ReAct와 Tool Use
 
+이 브랜치의 [자유 지시 실습](free-instruction.md)은 작업 문장을 입력하면 모델이 같은 장면에서 다음 행동을 선택하고 실행 결과를 다시 읽습니다. 아래에는 기존 13강 사례별 실행법을 함께 제공합니다.
+
 한국어로 촬영·전진·블록 운반을 요청하고, Isaac Sim 6.1에서 실행 결과를 확인합니다. 기본 진입점은 [natural_command.py](natural_command.py)입니다. 실행 코드, 체크포인트, 녹화 영상과 결과는 이 GitHub 저장소에서 받습니다.
 
 [Google Slides에서 영상과 함께 보기](https://docs.google.com/presentation/d/1fiq3HZHeNQnmrItNBD8PSHUfsjZaFz1hVdX47lO6Xyk/edit) · [강의 슬라이드 내려받기](lesson13.pptx) · [모델 명령 입력 화면](media/model-blue-input.png)

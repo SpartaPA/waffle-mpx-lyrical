@@ -6,6 +6,8 @@ TurtleBot3 Waffle Pi에 OpenMANIPULATOR-X, LDS-03(COIN-D4), 전방 RealSense D43
 
 [13강 · ReAct와 Tool Use](lessons/13-react/)에서는 Qwen으로 한국어 지시를 해석하고, Isaac Sim에서 시각·언어 모델로 촬영 여부를 결정합니다. Waffle VLA로 지정 색상의 블록을 옮기고 휠 피드백으로 차체도 전진시킵니다. 실행 코드, 녹화 영상, 터미널 캡처와 관측 로그를 함께 제공합니다.
 
+이 브랜치에서 자연어 지시를 바로 실행하려면 [자유 지시 VLA 실행법과 호출 횟수 확인](lessons/13-react/free-instruction.md)을 따릅니다.
+
 ## 설치와 실습 순서
 
 1. [장치별 설치와 첫 실행](docs/install.md)에서 저장소를 클론하고 ROS 패키지 8개를 빌드합니다. 먼저 mock에서 팔을 움직여 제어 구성을 확인할 수 있습니다.
