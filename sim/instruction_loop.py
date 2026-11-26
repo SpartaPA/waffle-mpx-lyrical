@@ -41,7 +41,7 @@ SCHEMA = {
 }
 
 
-def plan(instruction, observation, history):
+def plan(instruction, observation, history, *, system=SYSTEM):
     payload = {
         "model": os.getenv("WAFFLE_PLANNER_MODEL", "qwen2.5:7b"),
         "format": SCHEMA,
@@ -49,7 +49,7 @@ def plan(instruction, observation, history):
         "keep_alive": "3m",
         "options": {"temperature": 0, "num_ctx": 4096, "num_gpu": 0},
         "messages": [
-            {"role": "system", "content": SYSTEM},
+            {"role": "system", "content": system},
             {
                 "role": "user",
                 "content": json.dumps(
