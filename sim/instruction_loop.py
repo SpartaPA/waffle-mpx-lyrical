@@ -41,10 +41,10 @@ SCHEMA = {
 }
 
 
-def plan(instruction, observation, history, *, system=SYSTEM):
+def ask_model(system, message, schema):
     payload = {
         "model": os.getenv("WAFFLE_PLANNER_MODEL", "qwen2.5:7b"),
-        "format": SCHEMA,
+        "format": schema,
         "stream": False,
         "keep_alive": "3m",
         "options": {"temperature": 0, "num_ctx": 4096, "num_gpu": 0},
@@ -52,14 +52,7 @@ def plan(instruction, observation, history, *, system=SYSTEM):
             {"role": "system", "content": system},
             {
                 "role": "user",
-                "content": json.dumps(
-                    {
-                        "instruction": instruction,
-                        "current": observation,
-                        "history": history,
-                    },
-                    ensure_ascii=False,
-                ),
+                "content": json.dumps(message, ensure_ascii=False),
             },
         ],
     }
@@ -70,6 +63,95 @@ def plan(instruction, observation, history, *, system=SYSTEM):
     )
     with urlopen(req, timeout=120) as response:
         return json.loads(json.load(response)["message"]["content"])
+
+
+def plan(instruction, observation, history, *, system=SYSTEM):
+    return ask_model(
+        system,
+        dict(instruction=instruction, current=observation, history=history),
+        SCHEMA,
+    )
+
+
+TASK_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "mode": {"enum": ["ordered", "reactive"]},
+        "steps": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "action": {"enum": ["place", "photo"]},
+                    "target": {"enum": ["none", "red", "blue", "left", "right"]},
+                },
+                "required": ["action", "target"],
+            },
+        },
+    },
+    "required": ["mode", "steps"],
+}
+TASK_SYSTEM = (
+    "Translate the user's request into its ordered effects. Use ordered mode only for "
+    "unconditional sequences consisting entirely of taking photographs and/or placing visible "
+    "red/blue cubes on the green pad. Use reactive mode for other goals, questions, conditions, "
+    "ambiguous referents, or unsupported destinations. Preserve explicit counts, before/after "
+    "relations and negation. A photograph is one photo step, target none. A transfer is one "
+    "place step, never locomotion. For a robot-relative reference use left/right as the target. "
+    "Only include requested effects. Emit each step in chronological execution order."
+)
+
+
+class TaskPlanner:
+    """Retain the requested sequence and advance only on successful execution feedback."""
+
+    def __init__(self, instruction, state):
+        self.instruction = instruction
+        task = ask_model(TASK_SYSTEM, {"instruction": instruction}, TASK_SCHEMA)
+        self.steps = None
+        self.task = task
+        if task.get("mode") != "ordered" or not task.get("steps"):
+            return
+        steps = []
+        for step in task["steps"]:
+            op, target = step["action"], step["target"]
+            if op == "place":
+                if target in ("left", "right"):
+                    x, y, _ = state["base_xyz"]
+                    yaw = state["yaw_rad"]
+                    offsets = {
+                        c: -(xyz[0] - x) * math.sin(yaw) + (xyz[1] - y) * math.cos(yaw)
+                        for c, xyz in state["cubes_xyz"].items()
+                    }
+                    if (
+                        len(offsets) != 2
+                        or abs(max(offsets.values()) - min(offsets.values())) < 0.001
+                    ):
+                        return
+                    pick = max if target == "left" else min
+                    target = pick(offsets, key=offsets.get)
+                if target not in state["cubes_xyz"]:
+                    return
+            elif op != "photo" or target != "none":
+                return
+            steps.append((op, target))
+        self.steps = steps
+
+    def next(self, state, history):
+        if self.steps is None or any("error" in h["result"] for h in history):
+            return plan(self.instruction, state, history)
+        index = len(history)
+        op, target = (
+            self.steps[index] if index < len(self.steps) else ("finish", "none")
+        )
+        return dict(
+            action=op,
+            color=target,
+            depends_on=[index - 1] if index else [],
+            text="",
+            value=0,
+            index=0,
+        )
 
 
 def run_instruction(
@@ -116,11 +198,15 @@ def run_instruction(
     reason = "budget_exhausted"
     vla_inferences = 0
     completed_edges = 0
+    planner = TaskPlanner(args.free_instruction, status())
+    (args.output / "task.json").write_text(
+        json.dumps(planner.task, ensure_ascii=False, indent=2)
+    )
     for turn in range(args.turns):
         before = status()
         frame = args.output / f"observation-{turn:02d}.png"
         camera(frame)
-        item = plan(args.free_instruction, before, history)
+        item = planner.next(before, history)
         op = item.get("action")
         evidence = {}
         peak_lift = None
@@ -237,7 +323,11 @@ def run_instruction(
             evidence["error"] = str(exc)
         record = {
             "turn": turn,
-            **({"peak_lift_m": peak_lift} if op in ("place", "vla") and peak_lift is not None else {}),
+            **(
+                {"peak_lift_m": peak_lift}
+                if op in ("place", "vla") and peak_lift is not None
+                else {}
+            ),
             "decision": item,
             "before": before,
             "after": status(),
@@ -257,7 +347,12 @@ def run_instruction(
             {
                 "instruction": args.free_instruction,
                 "stop": reason,
-                "planner_calls": len(history),
+                "planner_calls": 1
+                + sum(
+                    planner.steps is None
+                    or any("error" in h["result"] for h in history[:i])
+                    for i in range(len(history))
+                ),
                 "vla_inferences": vla_inferences,
                 "declared_dependency_edges": completed_edges,
                 "state": status(),
