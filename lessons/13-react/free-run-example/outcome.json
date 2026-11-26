@@ -1,0 +1,38 @@
+{
+  "instruction": "파란 블록을 초록 칸으로 옮겨 놓은 다음, 그 결과를 사진 한 장으로 남겨 줘.",
+  "stop": "model_finished",
+  "planner_calls": 3,
+  "vla_inferences": 1,
+  "declared_dependency_edges": 3,
+  "state": {
+    "base_xyz": [
+      -0.014,
+      0.0002,
+      0.0004
+    ],
+    "yaw_rad": 0.0205,
+    "joints": [
+      0.0092,
+      0.7636,
+      -0.6138,
+      0.5378,
+      0.012
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.2118,
+        -0.0269,
+        0.05
+      ],
+      "blue": [
+        0.2601,
+        0.0084,
+        0.051
+      ]
+    }
+  }
+}
