@@ -330,6 +330,8 @@ def run_instruction(
                     if np.abs(action[:2]).max() > 1e-5:
                         raise ValueError("Expected a parked-base arm policy")
                     apply(action[2:])
+                    if args.record_frames:
+                        camera(args.output / f"motion-{turn:02d}-{step:03d}.jpg")
                     for color, cube in cubes.items():
                         lift = float(position(cube)[2] - before["cubes_xyz"][color][2])
                         peak_lift[color] = max(peak_lift[color], lift)

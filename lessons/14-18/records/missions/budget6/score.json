@@ -1,0 +1,1 @@
+{"trial": "budget6", "success": true, "target": "blue", "expected": ["photo", "place", "photo"], "observed": ["photo", "place", "photo"], "initial_positions": {"red": [0.2158, -0.0226, 0.05], "blue": [0.2162, 0.0426, 0.05]}, "final_error_m": 0.0049000000000000155, "stop": "model_finished", "first_failure": null, "diagnostics": []}

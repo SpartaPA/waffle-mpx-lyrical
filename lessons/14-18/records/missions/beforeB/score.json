@@ -1,0 +1,1 @@
+{"trial": "beforeB", "success": true, "target": "red", "expected": ["photo", "place"], "observed": ["photo", "place"], "initial_positions": {"red": [0.213, 0.0422, 0.05], "blue": [0.2162, -0.0222, 0.05]}, "final_error_m": 0.005277309920783513, "stop": "model_finished", "first_failure": null, "diagnostics": []}

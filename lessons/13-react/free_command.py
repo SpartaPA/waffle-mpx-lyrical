@@ -13,6 +13,9 @@ p.add_argument("--scene", type=Path, default=root.parent / "simulation/scene.usd
 p.add_argument("--output", type=Path, required=True)
 p.add_argument("--show", action="store_true")
 p.add_argument("--turns", type=int, default=8)
+p.add_argument("--seed", type=int, default=8601)
+p.add_argument("--mirror-layout", action="store_true")
+p.add_argument("--record-frames", action="store_true", help="Save live D435 frames during Isaac arm motion")
 args = p.parse_args()
 instruction = input("로봇에게 할 말 > ").strip()
 if not instruction:
@@ -55,8 +58,12 @@ cmd = [
     "--turns",
     str(args.turns),
     "--seed",
-    "8601",
+    str(args.seed),
 ]
+if args.record_frames:
+    cmd.append("--record-frames")
+if args.mirror_layout:
+    cmd.append("--mirror-layout")
 if args.show:
     cmd.append("--show")
 subprocess.run(cmd, check=True)

@@ -1,0 +1,38 @@
+{
+  "instruction": "두 큐브 중 로봇 기준 왼쪽에 있는 것만 초록 칸에 옮겨. 사진은 찍지 마.",
+  "stop": "model_finished",
+  "planner_calls": 1,
+  "vla_inferences": 1,
+  "declared_dependency_edges": 1,
+  "state": {
+    "base_xyz": [
+      -0.014,
+      0.0002,
+      0.0004
+    ],
+    "yaw_rad": 0.0146,
+    "joints": [
+      0.0095,
+      0.7876,
+      -0.6474,
+      0.5418,
+      0.012
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.2161,
+        -0.0222,
+        0.05
+      ],
+      "blue": [
+        0.2583,
+        0.0054,
+        0.051
+      ]
+    }
+  }
+}

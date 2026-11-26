@@ -92,3 +92,25 @@ python3 lessons/14-18/record_demo.py "$OUT" "$OUT/demo.mp4"
 ```
 
 영상 합성에는 ffmpeg와 Noto Sans CJK 폰트가 필요합니다. 출력 디렉터리의 result.json에서 지정 블록 파지, 다른 블록 파지 여부, 안정 시간과 성공 판정을 확인합니다. GitHub의 파랑 기록은 같은 시드의 별도 RGB-D 재실행에서 가져왔으므로 영상 녹화 실행과의 세부 물리 수치는 조금 달라질 수 있습니다.
+
+## 강의별 코드 읽기와 심화 미션
+
+[강의별 코드 해설·공식 시연·관련 연구](code-and-papers.md)에서 함수와 해당 줄을 바로 열 수 있습니다. [여섯 미션의 실측 기록](records/missions)에는 최초 계획, 턴별 상태, 작업 종료 상태와 독립 채점 결과가 있습니다. 두 조건부 확장 과제는 교안에 실험 설계로 수록했습니다.
+
+| 실행 | 지시의 핵심 | 시드·배치 | 예산 | 채점 결과 |
+|---|---|---|---:|---|
+| budget2 | 전후 촬영 사이에 파란 큐브 운반 | 9201 A | 2 | 실패 · 마지막 사진 누락 |
+| budget6 | 같은 지시를 다시 실행 | 9201 A | 6 | 성공 · 사진 2장 |
+| leftA | 로봇 기준 왼쪽만 운반, 촬영 금지 | 9201 A | 6 | 성공 · 파랑 |
+| leftB | 같은 지시, 좌우 반전 | 9302 B | 6 | 성공 · 빨강 |
+| afterB | 안착 뒤에만 촬영 | 9302 B | 6 | 성공 · 운반 후 1장 |
+| beforeB | 먼저 촬영한 뒤 운반 | 9302 B | 6 | 성공 · 운반 전 1장 |
+
+시뮬레이터 환경에서 저장소 루트로 이동하고 아래 명령을 실행합니다. 실행마다 새 출력 경로를 지정합니다. 프롬프트에는 각 기록의 outcome.json에 있는 instruction을 입력합니다. B 배치는 --seed 9302 --mirror-layout, 예산 보정 실험은 --turns 2 또는 --turns 6을 사용합니다.
+
+```bash
+export WAFFLE_LEARNING_DEPS="$HOME/waffle_mpx/.learning-deps"
+python3 lessons/13-react/free_command.py --scene "$HOME/waffle_mpx/simulation/scene.usda" --output /tmp/waffle-new-mission --seed 9201 --turns 6
+```
+
+각 조건은 한 번씩 실행했습니다. 배치 일반화나 반복 성공률 추정에는 추가 시드가 필요합니다. 운반의 수평 허용 오차는 16 mm이며 선택한 물체의 상승, 다른 물체 상승 여부, 사진의 시점·개수도 채점합니다.
