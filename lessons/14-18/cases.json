@@ -1,0 +1,346 @@
+[
+  {
+    "id": "00-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "completed",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "00-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "completed",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "01-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 1.2,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.stale",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "01-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 1.2,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.stale",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "02-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "mm",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.frame_unit_version",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "02-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "mm",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.frame_unit_version",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "03-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "map",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.frame_unit_version",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "03-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "map",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "contract.frame_unit_version",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "04-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "plan.cycle",
+    "graph": {
+      "observe": [
+        "place"
+      ],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "04-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "plan.cycle",
+    "graph": {
+      "observe": [
+        "place"
+      ],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "05-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "missing",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "rag.no_evidence",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "05-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "missing",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "rag.no_evidence",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "06-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": true,
+    "timeout": false,
+    "expected": "tool.unavailable",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "06-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": true,
+    "timeout": false,
+    "expected": "tool.unavailable",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "07-빨간",
+    "instruction": "빨간 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": true,
+    "expected": "result.unknown",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "07-파란",
+    "instruction": "파란 블록을 초록 칸으로 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": true,
+    "expected": "result.unknown",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "08-빨간",
+    "instruction": "블록을 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "ground.ambiguous",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "08-파란",
+    "instruction": "빨간 또는 파란 블록을 옮겨",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "ground.ambiguous",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "09-빨간",
+    "instruction": "초록 칸에 빨간 블록을 놓아 줘",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "completed",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  },
+  {
+    "id": "09-파란",
+    "instruction": "초록 칸에 파란 블록을 놓아 줘",
+    "age": 0.1,
+    "unit": "m",
+    "frame": "world",
+    "version": "2",
+    "tool_failed": false,
+    "timeout": false,
+    "expected": "completed",
+    "graph": {
+      "observe": [],
+      "place": [
+        "observe"
+      ]
+    }
+  }
+]

@@ -1,0 +1,294 @@
+{
+  "baseline": {
+    "correct": 8,
+    "total": 20,
+    "cases": [
+      {
+        "id": "00-빨간",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 21.5
+      },
+      {
+        "id": "00-파란",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 13.9
+      },
+      {
+        "id": "01-빨간",
+        "expected": "contract.stale",
+        "observed": "completed",
+        "correct": false,
+        "ms": 13.93
+      },
+      {
+        "id": "01-파란",
+        "expected": "contract.stale",
+        "observed": "completed",
+        "correct": false,
+        "ms": 16.01
+      },
+      {
+        "id": "02-빨간",
+        "expected": "contract.frame_unit_version",
+        "observed": "completed",
+        "correct": false,
+        "ms": 16.63
+      },
+      {
+        "id": "02-파란",
+        "expected": "contract.frame_unit_version",
+        "observed": "completed",
+        "correct": false,
+        "ms": 16.65
+      },
+      {
+        "id": "03-빨간",
+        "expected": "contract.frame_unit_version",
+        "observed": "completed",
+        "correct": false,
+        "ms": 19.6
+      },
+      {
+        "id": "03-파란",
+        "expected": "contract.frame_unit_version",
+        "observed": "completed",
+        "correct": false,
+        "ms": 22.79
+      },
+      {
+        "id": "04-빨간",
+        "expected": "plan.cycle",
+        "observed": "completed",
+        "correct": false,
+        "ms": 23.79
+      },
+      {
+        "id": "04-파란",
+        "expected": "plan.cycle",
+        "observed": "completed",
+        "correct": false,
+        "ms": 23.6
+      },
+      {
+        "id": "05-빨간",
+        "expected": "rag.no_evidence",
+        "observed": "completed",
+        "correct": false,
+        "ms": 21.07
+      },
+      {
+        "id": "05-파란",
+        "expected": "rag.no_evidence",
+        "observed": "completed",
+        "correct": false,
+        "ms": 19.58
+      },
+      {
+        "id": "06-빨간",
+        "expected": "tool.unavailable",
+        "observed": "tool.unavailable",
+        "correct": true,
+        "ms": 18.12
+      },
+      {
+        "id": "06-파란",
+        "expected": "tool.unavailable",
+        "observed": "tool.unavailable",
+        "correct": true,
+        "ms": 17.59
+      },
+      {
+        "id": "07-빨간",
+        "expected": "result.unknown",
+        "observed": "result.unknown",
+        "correct": true,
+        "ms": 16.68
+      },
+      {
+        "id": "07-파란",
+        "expected": "result.unknown",
+        "observed": "result.unknown",
+        "correct": true,
+        "ms": 16.44
+      },
+      {
+        "id": "08-빨간",
+        "expected": "ground.ambiguous",
+        "observed": "completed",
+        "correct": false,
+        "ms": 17.1
+      },
+      {
+        "id": "08-파란",
+        "expected": "ground.ambiguous",
+        "observed": "completed",
+        "correct": false,
+        "ms": 16.69
+      },
+      {
+        "id": "09-빨간",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 17.35
+      },
+      {
+        "id": "09-파란",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 16.95
+      }
+    ]
+  },
+  "guarded": {
+    "correct": 20,
+    "total": 20,
+    "cases": [
+      {
+        "id": "00-빨간",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 17.41
+      },
+      {
+        "id": "00-파란",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 17.15
+      },
+      {
+        "id": "01-빨간",
+        "expected": "contract.stale",
+        "observed": "contract.stale",
+        "correct": true,
+        "ms": 15.6
+      },
+      {
+        "id": "01-파란",
+        "expected": "contract.stale",
+        "observed": "contract.stale",
+        "correct": true,
+        "ms": 15.33
+      },
+      {
+        "id": "02-빨간",
+        "expected": "contract.frame_unit_version",
+        "observed": "contract.frame_unit_version",
+        "correct": true,
+        "ms": 15.59
+      },
+      {
+        "id": "02-파란",
+        "expected": "contract.frame_unit_version",
+        "observed": "contract.frame_unit_version",
+        "correct": true,
+        "ms": 17.37
+      },
+      {
+        "id": "03-빨간",
+        "expected": "contract.frame_unit_version",
+        "observed": "contract.frame_unit_version",
+        "correct": true,
+        "ms": 18.77
+      },
+      {
+        "id": "03-파란",
+        "expected": "contract.frame_unit_version",
+        "observed": "contract.frame_unit_version",
+        "correct": true,
+        "ms": 19.91
+      },
+      {
+        "id": "04-빨간",
+        "expected": "plan.cycle",
+        "observed": "plan.cycle",
+        "correct": true,
+        "ms": 0.01
+      },
+      {
+        "id": "04-파란",
+        "expected": "plan.cycle",
+        "observed": "plan.cycle",
+        "correct": true,
+        "ms": 0.0
+      },
+      {
+        "id": "05-빨간",
+        "expected": "rag.no_evidence",
+        "observed": "rag.no_evidence",
+        "correct": true,
+        "ms": 0.11
+      },
+      {
+        "id": "05-파란",
+        "expected": "rag.no_evidence",
+        "observed": "rag.no_evidence",
+        "correct": true,
+        "ms": 0.04
+      },
+      {
+        "id": "06-빨간",
+        "expected": "tool.unavailable",
+        "observed": "tool.unavailable",
+        "correct": true,
+        "ms": 19.91
+      },
+      {
+        "id": "06-파란",
+        "expected": "tool.unavailable",
+        "observed": "tool.unavailable",
+        "correct": true,
+        "ms": 18.0
+      },
+      {
+        "id": "07-빨간",
+        "expected": "result.unknown",
+        "observed": "result.unknown",
+        "correct": true,
+        "ms": 15.21
+      },
+      {
+        "id": "07-파란",
+        "expected": "result.unknown",
+        "observed": "result.unknown",
+        "correct": true,
+        "ms": 15.13
+      },
+      {
+        "id": "08-빨간",
+        "expected": "ground.ambiguous",
+        "observed": "ground.ambiguous",
+        "correct": true,
+        "ms": 0.0
+      },
+      {
+        "id": "08-파란",
+        "expected": "ground.ambiguous",
+        "observed": "ground.ambiguous",
+        "correct": true,
+        "ms": 0.0
+      },
+      {
+        "id": "09-빨간",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 16.14
+      },
+      {
+        "id": "09-파란",
+        "expected": "completed",
+        "observed": "completed",
+        "correct": true,
+        "ms": 16.15
+      }
+    ]
+  }
+}

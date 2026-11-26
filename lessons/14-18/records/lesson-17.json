@@ -1,0 +1,10 @@
+{
+  "retrieved": [
+    "table-v2-settle"
+  ],
+  "generated": {
+    "quote": "블록 운반 후 목표 칸 안에서 약 0.5초 이상 안정된 상태를 확인합니다.",
+    "id": "table-v2-settle"
+  },
+  "status": "cited"
+}

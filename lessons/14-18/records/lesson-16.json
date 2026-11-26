@@ -1,0 +1,12 @@
+{
+  "steps": 92,
+  "rejected_raw": 0,
+  "first_applied": {
+    "joint1": 0.2195572316646576,
+    "joint2": -0.051231122016906744,
+    "joint3": 0.2694388568401337,
+    "joint4": -0.06359486877918244,
+    "gripper_left_joint": 0.00558720456622541
+  },
+  "physics": true
+}

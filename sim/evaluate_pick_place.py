@@ -23,6 +23,7 @@ parser.add_argument('--controller', choices=['vla','teacher','color','baseline']
 parser.add_argument('--parent-vla',type=Path,help='Original HF VLA checkpoint used by the color adapter')
 parser.add_argument('--target', choices=['red','blue'], help='Run only the requested cube color')
 parser.add_argument('--show', action='store_true', help='Open the Isaac Sim viewport')
+parser.add_argument('--capture-rgbd', action='store_true', help='Save the starting aligned depth and optical-to-world calibration for the grounding lab')
 parser.add_argument('--record-frames', action='store_true', help='Save the RGB frame at each policy step')
 parser.add_argument('--free-instruction', help='Use a live instruction and observation loop on this scene')
 parser.add_argument('--mirror-layout', action='store_true', help='Reflect free-instruction cube positions around y=0.010 m')
@@ -165,6 +166,9 @@ def run(worker):
     product = rep.create.render_product(str(camera.GetPath()), (640,480))
     rgb = rep.AnnotatorRegistry.get_annotator('rgb')
     rgb.attach(product)
+    if args.capture_rgbd:
+        depth = rep.AnnotatorRegistry.get_annotator('distance_to_image_plane')
+        depth.attach(product)
     clock = omni.timeline.get_timeline_interface()
     clock.set_target_framerate(60)
     clock.play()
@@ -270,6 +274,13 @@ def run(worker):
                         image.save(trial/f'step-{step:02d}.jpg')
                     if step == 0:
                         image.save(trial/'start.png')
+                        if args.capture_rgbd:
+                            cam = UsdGeom.Camera(camera)
+                            fx = 640 * cam.GetFocalLengthAttr().Get() / cam.GetHorizontalApertureAttr().Get()
+                            # USD matrix uses row vectors; optical Y and Z oppose USD camera Y and Z.
+                            transform = np.array(UsdGeom.XformCache().GetLocalToWorldTransform(camera)).T @ np.diag([1,-1,-1,1])
+                            np.savez_compressed(trial/'rgbd.npz', depth_m=np.asarray(depth.get_data()),
+                                                optical_to_world=transform, intrinsics=[fx,fx,320.,240.])
                         r,g,b = np.moveaxis(np.asarray(image, dtype=float),-1,0)
                         masks = [(r > 1.4*g) & (r > 1.4*b) & (r>40),
                                  (b > 1.4*r) & (b > 1.4*g) & (b>40),

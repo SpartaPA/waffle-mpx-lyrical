@@ -1,0 +1,15 @@
+{
+  "validated": {
+    "version": "command.v1",
+    "request_id": "lab14",
+    "frame": "world",
+    "unit": "m",
+    "xyz": [
+      0.254,
+      0.008,
+      0.051
+    ],
+    "age_s": 0.1
+  },
+  "next": "action_client.py"
+}

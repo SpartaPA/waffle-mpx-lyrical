@@ -132,3 +132,5 @@ cd ~/waffle_mpx
 로컬 PC에서 ros2_control 4개 컨트롤러 활성화, 팔·그리퍼 액션 성공, MoveIt OMPL 계획 및 궤적 실행을 확인했습니다. RTX 5060의 Isaac Sim 6.1에서 가상 센서, 오도메트리, Cartographer 지도 저장 및 해당 지도를 사용한 Nav2 목표 도달을 확인했습니다. Isaac Lab 3.0의 Newton MJWarp에서 로봇을 로드하고 240스텝 롤아웃을 실행했습니다. Isaac ROS에서 시뮬레이터의 RGB 영상을 640×480 mono8로 변환해 수신했습니다. 실물 카메라가 BEST_EFFORT로 발행하면 isaac_ros.launch.py에 `input_qos:=SENSOR_DATA`를 지정합니다. 실물 Pi·OpenCR·LDS-03·D435 조합과 출력물의 장착 공차는 실기 검증이 남아 있습니다.
 
 포팅 기준은 [ROBOTIS 조작 패키지 d989240](https://github.com/ROBOTIS-GIT/turtlebot3_manipulation/tree/d9892409da89a44ab1de0945a2ca3ea3fa87385f)와 [OpenMANIPULATOR-X 사양](https://docs.robotis.com/docs/systems/openmanipulator_x/overview/)입니다. 카메라 좌표는 RealSense D435 모델을 반영했습니다. 나머지 동봉 드라이버의 리비전은 [vendor 목록](vendor/revisions.repos)에 있습니다.
+
+[14~18강 통합 교안과 실습](lessons/14-18/README.md)에서 명령 계약, RGB-D Grounding, VLA 어댑터, 근거 검색과 20개 사례 평가를 실행합니다.
