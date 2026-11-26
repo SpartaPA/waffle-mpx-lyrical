@@ -12,35 +12,58 @@ from urllib.request import Request, urlopen
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 MODEL = "qwen2.5:1.5b"
-SYSTEM = """Translate the Korean robot request into one intent. photo means conditional camera capture; convert its distance from centimeters or meters to meters. drive means move the base straight forward by the stated distance, convert it to meters. pick_red / pick_blue mean pick the named cube and place it on the green square. For unsupported goals, multiple actions, missing color for picking, or missing photo threshold choose unsupported. Examples: '20센티미터 안이면 사진 찍어줘' -> photo with meters 0.2; '파란 블록을 초록 칸에 놓아줘' -> pick_blue. For pick or unsupported use meters 0."""
+SYSTEM = """Translate the Korean robot request into one intent. photo means conditional camera capture; convert its distance from centimeters or meters to meters. drive means move the base straight forward by the stated distance, convert it to meters. approach means move forward until the object in front is at the stated distance, convert it to meters. pick_red / pick_blue mean pick the named cube and place it on the green square. For unsupported goals, multiple actions, missing color for picking, or missing photo threshold choose unsupported. Examples: '20센티미터 안이면 사진 찍어줘' -> photo with meters 0.2; '앞으로 10센티미터 가줘' -> drive with meters 0.1; '앞 물체와 30센티미터가 될 때까지 다가가줘' -> approach with meters 0.3; '파란 블록을 초록 칸에 놓아줘' -> pick_blue. For pick or unsupported use meters 0."""
+PHOTO_WORDS = ("사진","촬영","찍")
+UNTIL_WORDS = ("까지","될때","될 때")
+MOVE_WORDS = ("가까이","다가","접근","가 줘","가줘","가 주","가주","이동","전진")
+def check(sentence,plan):
+    """Reject intents whose key words are missing from the sentence; the 1.5B model confuses distance phrases."""
+    text=sentence.replace(" ","")
+    def has(words):return any(w.replace(" ","") in text for w in words)
+    approach=has(UNTIL_WORDS) and has(MOVE_WORDS) and not has(PHOTO_WORDS)
+    if plan["intent"]=="photo" and not has(PHOTO_WORDS):
+        plan=dict(plan,intent="approach" if approach else "unsupported")
+    elif plan["intent"]=="drive" and approach:
+        plan=dict(plan,intent="approach")
+    elif plan["intent"]=="approach" and not approach:
+        plan=dict(plan,intent="unsupported")
+    elif plan["intent"] in ("pick_red","pick_blue"):
+        colors=[c for c,words in (("red",("빨간","빨강","red")),("blue",("파란","파랑","blue"))) if has(words)]
+        plan=dict(plan,intent="pick_"+colors[0] if len(colors)==1 else "unsupported")
+    return plan
 def interpret(sentence):
-    schema = {"type":"object","properties":{"intent":{"type":"string","enum":["photo","pick_red","pick_blue","drive","unsupported"]},"meters":{"type":"number"}},"required":["intent","meters"]}
+    schema = {"type":"object","properties":{"intent":{"type":"string","enum":["photo","pick_red","pick_blue","drive","approach","unsupported"]},"meters":{"type":"number"}},"required":["intent","meters"]}
     payload = {"model":MODEL,"stream":False,"keep_alive":0,"format":schema,"options":{"temperature":0,"num_predict":64,"num_ctx":2048},"messages":[{"role":"system","content":SYSTEM},{"role":"user","content":sentence}]}
     req=Request("http://127.0.0.1:11434/api/chat",data=json.dumps(payload).encode(),headers={"Content-Type":"application/json"})
     with urlopen(req,timeout=120) as response:
         plan=json.loads(json.load(response)["message"]["content"])
     if plan.get("intent") not in schema["properties"]["intent"]["enum"] or type(plan.get("meters")) not in (float,int):
         raise ValueError("Invalid model output")
-    return plan
+    return check(sentence,plan)
 
-def photo(limit,output):
+def photo(limit,output,wait_s=12):
     import rclpy
     from sensor_msgs.msg import Image,LaserScan
     from rclpy.qos import qos_profile_sensor_data
     rclpy.init()
     node=rclpy.create_node("lesson13_model_case")
-    latest={}
-    node.create_subscription(Image,"/camera/color/image_raw",lambda m:latest.update(rgb=m),qos_profile_sensor_data)
-    node.create_subscription(LaserScan,"/scan",lambda m:latest.update(scan=m),qos_profile_sensor_data)
+    latest,count={},{"rgb":0,"scan":0}
+    def keep(key):
+        def store(m):
+            latest[key]=(m,time.monotonic())
+            count[key]+=1
+        return store
+    node.create_subscription(Image,"/camera/color/image_raw",keep("rgb"),qos_profile_sensor_data)
+    node.create_subscription(LaserScan,"/scan",keep("scan"),qos_profile_sensor_data)
     try:
-        deadline=time.monotonic()+12
+        # Pair by arrival time, not header stamps: the D435 and LDS-03 stamp with different clocks on the robot.
+        deadline=time.monotonic()+wait_s
         while time.monotonic()<deadline:
             rclpy.spin_once(node,timeout_sec=.1)
-            if len(latest)==2:
-                def stamp(m):return m.header.stamp.sec+m.header.stamp.nanosec/1e9
-                if abs(stamp(latest["rgb"])-stamp(latest["scan"]))<=.15: break
-        else: raise RuntimeError("Timed out waiting for matching camera and lidar samples")
-        rgb,scan=latest["rgb"],latest["scan"]
+            if len(latest)==2 and abs(latest["rgb"][1]-latest["scan"][1])<=.3:break
+        else:raise RuntimeError(f"Timed out waiting for camera and lidar samples ({wait_s:g} s): "
+                                f"/camera/color/image_raw {count['rgb']} msgs, /scan {count['scan']} msgs received")
+        rgb,scan=latest["rgb"][0],latest["scan"][0]
     finally:
         node.destroy_node()
         rclpy.shutdown()
@@ -64,6 +87,8 @@ def main():
     p.add_argument("--scene",type=Path,default=Path(os.environ.get("WAFFLE_SCENE", ROOT.parent/"simulation/scene.usda")))
     p.add_argument("--output",required=True,type=Path)
     p.add_argument("--show",action="store_true")
+    p.add_argument("--hardware",action="store_true",help="Drive the real robot through /cmd_vel and /joint_states")
+    p.add_argument("--sensor-timeout",type=float,default=12)
     args=p.parse_args()
     sentence=input("자연어 명령 > ").strip()
     plan=interpret(sentence)
@@ -71,10 +96,15 @@ def main():
     args.output.mkdir(parents=True,exist_ok=False)
     (args.output/"request.json").write_text(json.dumps({"request":sentence,"model":MODEL,"plan":plan},ensure_ascii=False,indent=2))
     if plan["intent"]=="photo" and 0<plan["meters"]<=12:
-        outcome=photo(plan["meters"],args.output)
+        outcome=photo(plan["meters"],args.output,args.sensor_timeout)
     elif plan["intent"]=="drive" and 0<plan["meters"]<=.15:
         from drive_feedback import advance
-        outcome=advance(plan["meters"])
+        outcome=advance(plan["meters"],args.hardware)
+    elif plan["intent"]=="approach" and .2<=plan["meters"]<=1.5:
+        from drive_feedback import approach
+        outcome=approach(plan["meters"],args.hardware)
+    elif plan["intent"] in ("pick_red","pick_blue") and args.hardware:
+        raise SystemExit("블록 집기는 Isaac Sim에서만 실행합니다. --hardware 없이 실행하세요.")
     elif plan["intent"] in ("pick_red","pick_blue"):
         target=plan["intent"].split("_")[1]
         sim=os.environ.get("ISAAC_SIM_PYTHON",str(Path.home()/"isaacsim6_venv/bin/python"))
