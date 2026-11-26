@@ -1,0 +1,27 @@
+TURN 0 photo {'photo': 'photo-00.png'}
+TURN 1 translate {'measured_change': np.float64(0.0804)}
+Traceback (most recent call last):
+  File "/tmp/pa13-open-vla/learning/pick_place_worker.py", line 21, in <module>
+    action = predict(frame, obs['instruction'], obs['state'])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/pa13-open-vla/learning/color_imitation.py", line 55, in plan
+    geometry = (image_features(image,instruction)-self.mean)/self.scale
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/pa13-open-vla/learning/color_imitation.py", line 21, in image_features
+    raise ValueError('Selected block missing from the starting RGB')
+ValueError: Selected block missing from the starting RGB
+2026-11-26T06:27:53Z [6,941ms] [Warning] [carb] Plugin interface for a client: omni.hydratexture.plugin was already released.
+2026-11-26T06:27:53Z [6,961ms] [Warning] [omni.syntheticdata.plugin] OgnSdPostRenderVarToHost : rendervar copy from texture directly to host buffer is counter-performant. Please use copy from texture to device buffer first.
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]: Traceback (most recent call last):
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]:   File "/tmp/pa13-open-vla/sim/evaluate_pick_place.py", line 324, in <module>
+    run(worker)
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]:   File "/tmp/pa13-open-vla/sim/evaluate_pick_place.py", line 193, in run
+    run_instruction(args, body, rgb, cubes, controls, wheels, advance, worker, predict, GOAL)
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]:   File "/tmp/pa13-open-vla/sim/instruction_loop.py", line 211, in run_instruction
+    pred = predict(
+           ^^^^^^^^
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]:   File "/tmp/pa13-open-vla/sim/evaluate_pick_place.py", line 110, in predict
+    raise RuntimeError('Policy process exited before returning an action')
+2026-11-26T06:28:37Z [51,010ms] [Error] [omni.kit.app._impl] [py stderr]: RuntimeError: Policy process exited before returning an action
+2026-11-26T06:28:37Z [51,180ms] [Warning] [carb] Plugin interface for a client: omni.hydratexture.plugin was already released.
+[51.248s] Simulation App Shutting Down

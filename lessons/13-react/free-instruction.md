@@ -50,3 +50,19 @@ depends_on은 이번 행동이 필요로 한다고 모델이 **명시한 이전 
 ```bash
 grep -Ec '^[[:space:]]*[[:alnum:]]' learning/requirements.txt
 ```
+
+## 지시문과 물체 배치별 실험
+
+촬영 순서와 상대 위치 지시를 바꾼 8회 시험의 결과, 턴별 로그와 재현 명령은 [Isaac Sim 평가](evaluation/README.md)에서 확인할 수 있습니다.
+
+## 실기체에서 사용할 수 있는 제어 경로
+
+| 진입점 | 팔·그리퍼로 명령이 전달되는 경로 |
+|---|---|
+| MoveIt과 `mode:=hardware` | MoveIt의 `FollowJointTrajectory` 액션을 팔·그리퍼 제어기가 받아 처리합니다. 하드웨어 플러그인이 OpenCR로 목표 위치를 쓰고 실제 관절 위치와 속도를 읽습니다. |
+| `learning/ros_policy.py --policy` | D435 RGB, 관절 상태와 오도메트리를 동기화해 학습 정책을 호출합니다. 기본값에서는 예측을 발행합니다. `--execute`를 지정하고 시간 조건을 만족하면 팔 4축과 그리퍼의 목표를 각 제어기의 `joint_trajectory` 토픽에 발행합니다. 차체 속도 명령도 발행합니다. |
+| 이 실습의 `free_command.py` | Isaac Sim 장면에서 Qwen이 다음 행동을 결정합니다. 색상 운반 정책으로 예측한 궤적은 시뮬레이션 관절에 직접 적용합니다. 이 실행기에는 실제 블록·목표 좌표를 얻는 관측기와 각 행동을 ROS 제어기에 전달하는 실행기가 추가로 필요합니다. |
+
+하드웨어 모드의 URDF를 전개하여 MoveIt과 ROS 2 제어기의 관절 목록을 대조했습니다. `joint1`부터 `joint4`까지와 `gripper_left_joint` 모두 위치 명령·피드백 인터페이스가 일치합니다. 팔 관절 명령 단위는 rad, 그리퍼는 m이며 OpenCR 드라이버가 각각 모터 틱으로 변환합니다. 이 확인은 코드 구성에 대한 검증입니다.
+
+[하드웨어 실행 설정](../../turtlebot3_manipulation_bringup/launch/robot.launch.py) · [MoveIt 제어기](../../turtlebot3_manipulation_moveit_config/config/moveit_controllers.yaml) · [OpenCR 변환과 전송](../../turtlebot3_manipulation_hardware/src/opencr.cpp) · [ROS 학습 정책 실행기](../../learning/ros_policy.py)

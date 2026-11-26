@@ -1,0 +1,38 @@
+{
+  "instruction": "옮기기 전의 작업대를 사진 한 장으로 기록해. 그런 다음 빨간 큐브를 초록 칸에 올려 둬.",
+  "stop": "model_finished",
+  "planner_calls": 3,
+  "vla_inferences": 1,
+  "declared_dependency_edges": 3,
+  "state": {
+    "base_xyz": [
+      -0.0157,
+      -0.0006,
+      0.0004
+    ],
+    "yaw_rad": 0.0549,
+    "joints": [
+      -0.0225,
+      0.7735,
+      -0.6194,
+      0.5268,
+      0.012
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.261,
+        0.0066,
+        0.051
+      ],
+      "blue": [
+        0.2156,
+        0.043,
+        0.05
+      ]
+    }
+  }
+}

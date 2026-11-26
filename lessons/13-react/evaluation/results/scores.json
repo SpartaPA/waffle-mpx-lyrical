@@ -1,0 +1,629 @@
+[
+  {
+    "trial": "before-A",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "photo",
+      "place"
+    ],
+    "observed": [
+      "photo",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.007138627319029905,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "before-B",
+    "success": false,
+    "target": "red",
+    "expected": [
+      "photo",
+      "place"
+    ],
+    "observed": [
+      "photo",
+      "translate"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.053391385072874824,
+    "stop": "blocked",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected place, got translate"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected place, got translate"
+      },
+      {
+        "turn": 1,
+        "stage": "execution",
+        "detail": "Base target outside range"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "blocked"
+      },
+      {
+        "turn": null,
+        "stage": "final_state",
+        "detail": "red center error 0.0534 m"
+      }
+    ]
+  },
+  {
+    "trial": "after-A",
+    "success": false,
+    "target": "red",
+    "expected": [
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "place",
+      "place",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.02199204401596176,
+    "stop": "blocked",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected photo, got place"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected photo, got place"
+      },
+      {
+        "turn": 1,
+        "stage": "lift",
+        "detail": "red peak lift 0.0001 m"
+      },
+      {
+        "turn": 1,
+        "stage": "placement",
+        "detail": "red center error 0.0208 m; height 0.0510 m"
+      },
+      {
+        "turn": 1,
+        "stage": "execution",
+        "detail": "Block did not settle at target"
+      },
+      {
+        "turn": 2,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 2,
+        "stage": "lift",
+        "detail": "red peak lift 0.0000 m"
+      },
+      {
+        "turn": 2,
+        "stage": "placement",
+        "detail": "red center error 0.0220 m; height 0.0510 m"
+      },
+      {
+        "turn": 2,
+        "stage": "execution",
+        "detail": "Block did not settle at target"
+      },
+      {
+        "turn": null,
+        "stage": "photo_count",
+        "detail": "expected 1 photos, found []"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "blocked"
+      },
+      {
+        "turn": null,
+        "stage": "final_state",
+        "detail": "red center error 0.0220 m"
+      }
+    ]
+  },
+  {
+    "trial": "after-B",
+    "success": false,
+    "target": "red",
+    "expected": [
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "place",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.014665946952038258,
+    "stop": "blocked",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected photo, got place"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected photo, got place"
+      },
+      {
+        "turn": null,
+        "stage": "photo_count",
+        "detail": "expected 1 photos, found []"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "blocked"
+      }
+    ]
+  },
+  {
+    "trial": "bookends-A",
+    "success": false,
+    "target": "blue",
+    "expected": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "photo",
+      "translate",
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.031761612049768524,
+    "stop": "budget_exhausted",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected place, got translate"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected place, got translate"
+      },
+      {
+        "turn": 2,
+        "stage": "sequence",
+        "detail": "expected photo, got place"
+      },
+      {
+        "turn": 2,
+        "stage": "placement",
+        "detail": "blue center error 0.0318 m; height 0.0507 m"
+      },
+      {
+        "turn": 2,
+        "stage": "execution",
+        "detail": "Block did not settle at target"
+      },
+      {
+        "turn": 3,
+        "stage": "sequence",
+        "detail": "expected finish, got photo"
+      },
+      {
+        "turn": 3,
+        "stage": "photo",
+        "detail": "photo file missing"
+      },
+      {
+        "turn": 3,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 4,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 5,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": null,
+        "stage": "photo_count",
+        "detail": "expected 2 photos, found ['photo-00.png']"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "budget_exhausted"
+      },
+      {
+        "turn": null,
+        "stage": "final_state",
+        "detail": "blue center error 0.0318 m"
+      }
+    ]
+  },
+  {
+    "trial": "bookends-B",
+    "success": false,
+    "target": "blue",
+    "expected": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "photo",
+      "translate",
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.04607689225631433,
+    "stop": "blocked",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected place, got translate"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected place, got translate"
+      },
+      {
+        "turn": 2,
+        "stage": "sequence",
+        "detail": "expected photo, got place"
+      },
+      {
+        "turn": 2,
+        "stage": "lift",
+        "detail": "blue peak lift 0.0000 m"
+      },
+      {
+        "turn": 2,
+        "stage": "placement",
+        "detail": "blue center error 0.0461 m; height 0.0512 m"
+      },
+      {
+        "turn": 2,
+        "stage": "execution",
+        "detail": "Selected block missing from the starting RGB"
+      },
+      {
+        "turn": 3,
+        "stage": "sequence",
+        "detail": "expected finish, got photo"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "blocked"
+      },
+      {
+        "turn": null,
+        "stage": "final_state",
+        "detail": "blue center error 0.0461 m"
+      }
+    ]
+  },
+  {
+    "trial": "relative-A",
+    "success": false,
+    "target": "blue",
+    "expected": [
+      "place"
+    ],
+    "observed": [
+      "place",
+      "place",
+      "place",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.022382582514088936,
+    "stop": "model_finished",
+    "first_failure": {
+      "turn": 0,
+      "stage": "selection",
+      "detail": "expected blue, selected red"
+    },
+    "diagnostics": [
+      {
+        "turn": 0,
+        "stage": "selection",
+        "detail": "expected blue, selected red"
+      },
+      {
+        "turn": 0,
+        "stage": "lift",
+        "detail": "blue peak lift 0.0008 m"
+      },
+      {
+        "turn": 0,
+        "stage": "wrong_lift",
+        "detail": "red peak lift 0.0598 m"
+      },
+      {
+        "turn": 0,
+        "stage": "placement",
+        "detail": "blue center error 0.0521 m; height 0.0500 m"
+      },
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 1,
+        "stage": "placement",
+        "detail": "blue center error 0.0224 m; height 0.0510 m"
+      },
+      {
+        "turn": 1,
+        "stage": "execution",
+        "detail": "Block did not settle at target"
+      },
+      {
+        "turn": 2,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 2,
+        "stage": "lift",
+        "detail": "blue peak lift 0.0000 m"
+      },
+      {
+        "turn": 2,
+        "stage": "placement",
+        "detail": "blue center error 0.0224 m; height 0.0510 m"
+      },
+      {
+        "turn": 2,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 3,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 3,
+        "stage": "lift",
+        "detail": "blue peak lift 0.0000 m"
+      },
+      {
+        "turn": 3,
+        "stage": "placement",
+        "detail": "blue center error 0.0224 m; height 0.0510 m"
+      },
+      {
+        "turn": 3,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 4,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": null,
+        "stage": "final_state",
+        "detail": "blue center error 0.0224 m"
+      }
+    ]
+  },
+  {
+    "trial": "relative-B",
+    "success": false,
+    "target": "red",
+    "expected": [
+      "place"
+    ],
+    "observed": [
+      "place",
+      "place",
+      "place",
+      "place",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.011566330446602312,
+    "stop": "budget_exhausted",
+    "first_failure": {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected finish, got place"
+    },
+    "diagnostics": [
+      {
+        "turn": 1,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 1,
+        "stage": "selection",
+        "detail": "expected red, selected blue"
+      },
+      {
+        "turn": 1,
+        "stage": "lift",
+        "detail": "red peak lift 0.0000 m"
+      },
+      {
+        "turn": 1,
+        "stage": "wrong_lift",
+        "detail": "blue peak lift 0.0642 m"
+      },
+      {
+        "turn": 1,
+        "stage": "execution",
+        "detail": "Block did not settle at target"
+      },
+      {
+        "turn": 2,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 2,
+        "stage": "selection",
+        "detail": "expected red, selected blue"
+      },
+      {
+        "turn": 2,
+        "stage": "lift",
+        "detail": "red peak lift 0.0000 m"
+      },
+      {
+        "turn": 2,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 3,
+        "stage": "execution",
+        "detail": "Unresolved predecessor"
+      },
+      {
+        "turn": 4,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 4,
+        "stage": "lift",
+        "detail": "red peak lift 0.0000 m"
+      },
+      {
+        "turn": 5,
+        "stage": "sequence",
+        "detail": "expected finish, got place"
+      },
+      {
+        "turn": 5,
+        "stage": "lift",
+        "detail": "red peak lift 0.0000 m"
+      },
+      {
+        "turn": null,
+        "stage": "termination",
+        "detail": "budget_exhausted"
+      }
+    ]
+  }
+]

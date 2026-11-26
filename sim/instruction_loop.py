@@ -123,6 +123,7 @@ def run_instruction(
         item = plan(args.free_instruction, before, history)
         op = item.get("action")
         evidence = {}
+        peak_lift = None
         try:
             deps = item["depends_on"]
             if not isinstance(deps, list) or any(
@@ -196,6 +197,7 @@ def run_instruction(
                     else text
                 )
                 steps = 92 if op == "place" else 8
+                peak_lift = {color: 0.0 for color in cubes}
                 for step in range(steps):
                     if op == "vla" or step == 0:
                         camera(frame)
@@ -216,6 +218,9 @@ def run_instruction(
                     if np.abs(action[:2]).max() > 1e-5:
                         raise ValueError("Expected a parked-base arm policy")
                     apply(action[2:])
+                    for color, cube in cubes.items():
+                        lift = float(position(cube)[2] - before["cubes_xyz"][color][2])
+                        peak_lift[color] = max(peak_lift[color], lift)
                 advance(0.5)
                 if op == "place":
                     evidence["center_error_m"] = float(
@@ -232,6 +237,7 @@ def run_instruction(
             evidence["error"] = str(exc)
         record = {
             "turn": turn,
+            **({"peak_lift_m": peak_lift} if op in ("place", "vla") and peak_lift is not None else {}),
             "decision": item,
             "before": before,
             "after": status(),

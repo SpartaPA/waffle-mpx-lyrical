@@ -18,5 +18,8 @@ for line in sys.stdin:
         predict = policy.plan if color_mode else policy.predict
         if color_mode and "--adaptive" in sys.argv and obs.get("continuous"):
             predict = policy.vla.policy.predict
-        action = predict(frame, obs['instruction'], obs['state'])
-    print(json.dumps(action.tolist(), allow_nan=False), flush=True)
+        try:
+            result = predict(frame, obs['instruction'], obs['state']).tolist()
+        except ValueError as exc:
+            result = {'error': str(exc)}
+    print(json.dumps(result, allow_nan=False), flush=True)

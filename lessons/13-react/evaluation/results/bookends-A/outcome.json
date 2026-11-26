@@ -1,0 +1,38 @@
+{
+  "instruction": "작업 전과 후의 사진을 한 장씩 남겨. 그 사이에 파란 큐브를 초록 칸에 옮겨 줘.",
+  "stop": "budget_exhausted",
+  "planner_calls": 6,
+  "vla_inferences": 1,
+  "declared_dependency_edges": 1,
+  "state": {
+    "base_xyz": [
+      0.05,
+      0.0003,
+      0.0004
+    ],
+    "yaw_rad": 0.0046,
+    "joints": [
+      -0.0137,
+      0.4461,
+      -0.1647,
+      0.4813,
+      0.012
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.2167,
+        -0.0282,
+        0.05
+      ],
+      "blue": [
+        0.2856,
+        0.0048,
+        0.0507
+      ]
+    }
+  }
+}

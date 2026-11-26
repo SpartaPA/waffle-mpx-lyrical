@@ -23,6 +23,7 @@ parser.add_argument('--target', choices=['red','blue'], help='Run only the reque
 parser.add_argument('--show', action='store_true', help='Open the Isaac Sim viewport')
 parser.add_argument('--record-frames', action='store_true', help='Save the RGB frame at each policy step')
 parser.add_argument('--free-instruction', help='Use a live instruction and observation loop on this scene')
+parser.add_argument('--mirror-layout', action='store_true', help='Reflect free-instruction cube positions around y=0.010 m')
 parser.add_argument('--turns', type=int, default=8)
 args = parser.parse_args()
 if args.free_instruction and (args.controller != 'color' or not 1 <= args.turns <= 32):
@@ -107,7 +108,10 @@ def predict(worker, frame_path, state, instruction, continuous=False):
     response = worker.stdout.readline()
     if not response:
         raise RuntimeError('Policy process exited before returning an action')
-    return np.array(json.loads(response))
+    result = json.loads(response)
+    if isinstance(result, dict) and "error" in result:
+        raise ValueError(result["error"])
+    return np.array(result)
 
 
 def run(worker):
@@ -184,6 +188,8 @@ def run(worker):
     if args.free_instruction:
         from instruction_loop import run_instruction
         for color, xyz in next(layouts()).items():
+            if args.mirror_layout:
+                xyz[1] = .020 - xyz[1]
             cubes[color].set_world_poses(xyz.tolist(), [1.,0.,0.,0.])
             cubes[color].set_velocities([0.]*3,[0.]*3)
         advance(.5)
