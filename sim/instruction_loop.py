@@ -76,30 +76,43 @@ def plan(instruction, observation, history, *, system=SYSTEM):
 TASK_SCHEMA = {
     "type": "object",
     "properties": {
-        "mode": {"enum": ["ordered", "reactive"]},
         "steps": {
             "type": "array",
             "items": {
-                "type": "object",
-                "properties": {
-                    "action": {"enum": ["place", "photo"]},
-                    "target": {"enum": ["none", "red", "blue", "left", "right"]},
-                },
-                "required": ["action", "target"],
+                "type": "string",
+                "enum": [
+                    "photo",
+                    "place_red",
+                    "place_blue",
+                    "place_left",
+                    "place_right",
+                    "reactive",
+                ],
             },
-        },
+        }
     },
-    "required": ["mode", "steps"],
+    "required": ["steps"],
 }
 TASK_SYSTEM = (
-    "Translate the user's request into its ordered effects. Use ordered mode only for "
-    "unconditional sequences consisting entirely of taking photographs and/or placing visible "
-    "red/blue cubes on the green pad. Use reactive mode for other goals, questions, conditions, "
-    "ambiguous referents, or unsupported destinations. Preserve explicit counts, before/after "
-    "relations and negation. A photograph is one photo step, target none. A transfer is one "
-    "place step, never locomotion. For a robot-relative reference use left/right as the target. "
-    "Only include requested effects. Emit each step in chronological execution order."
+    "당신은 로봇 명령 번역기입니다. "
+    "사용자가 요청한 행동만 시간 순서대로 steps에 나열하세요. "
+    "photo는 사진 한 장을 뜻합니다. "
+    "place는 지정한 큐브를 초록 칸에 옮기는 행동입니다. "
+    "색을 지시하면 red 또는 blue, 위치를 지시하면 로봇 기준 left 또는 right를 고르세요. "
+    "금지된 행동은 생략하세요. "
+    "이 목록으로 완전히 표현할 수 없는 조건부 지시, 다른 목적지, 조작, 주행, 모호한 지시는 reactive 하나를 출력하세요."
 )
+
+
+# A constrained decoder can emit an unrelated legal token. Use the fast path
+# only when the source text supports each proposed photo or pick target.
+STEP_MENTIONS = {
+    "photo": ("사진", "촬영", "찍", "컷", "photo", "picture", "snapshot"),
+    "place_red": ("빨", "적색", "붉", "red"),
+    "place_blue": ("파란", "파랑", "청색", "푸른", "blue"),
+    "place_left": ("왼", "좌측", "left"),
+    "place_right": ("오른", "우측", "right"),
+}
 
 
 class TaskPlanner:
@@ -107,14 +120,26 @@ class TaskPlanner:
 
     def __init__(self, instruction, state):
         self.instruction = instruction
+        self.calls = 1
         task = ask_model(TASK_SYSTEM, {"instruction": instruction}, TASK_SCHEMA)
         self.steps = None
         self.task = task
-        if task.get("mode") != "ordered" or not task.get("steps"):
+        if not task.get("steps") or "reactive" in task["steps"]:
+            return
+        source = instruction.casefold()
+        if any(
+            not any(word in source for word in STEP_MENTIONS.get(step, ()))
+            for step in task["steps"]
+        ):
+            return
+        if any(step.startswith("place_") for step in task["steps"]) and not any(
+            word in source for word in ("초록", "녹색", "그린", "green")
+        ):
             return
         steps = []
         for step in task["steps"]:
-            op, target = step["action"], step["target"]
+            op, _, target = step.partition("_")
+            target = target or "none"
             if op == "place":
                 if target in ("left", "right"):
                     x, y, _ = state["base_xyz"]
@@ -139,6 +164,7 @@ class TaskPlanner:
 
     def next(self, state, history):
         if self.steps is None or any("error" in h["result"] for h in history):
+            self.calls += 1
             return plan(self.instruction, state, history)
         index = len(history)
         op, target = (
@@ -347,12 +373,7 @@ def run_instruction(
             {
                 "instruction": args.free_instruction,
                 "stop": reason,
-                "planner_calls": 1
-                + sum(
-                    planner.steps is None
-                    or any("error" in h["result"] for h in history[:i])
-                    for i in range(len(history))
-                ),
+                "planner_calls": planner.calls,
                 "vla_inferences": vla_inferences,
                 "declared_dependency_edges": completed_edges,
                 "state": status(),

@@ -1,0 +1,13 @@
+{
+  "mode": "ordered",
+  "steps": [
+    {
+      "action": "photo",
+      "target": "none"
+    },
+    {
+      "action": "place",
+      "target": "red"
+    }
+  ]
+}

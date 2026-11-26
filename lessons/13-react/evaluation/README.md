@@ -1,8 +1,8 @@
 # 한국어 지시와 블록 배치에 따른 Isaac Sim 평가
 
-동일한 지시를 서로 다른 두 배치에서 한 번씩 수행합니다. 매 시험마다 Isaac Sim 장면과 대화 이력을 새로 시작합니다. Qwen2.5 7B가 지시문과 장면 상태를 보고 행동 순서를 정합니다. 색상별 집기 행동에서는 SmolVLM2 기반 Waffle 정책이 현재 RGB와 로봇 상태에서 팔의 관절 목표를 예측합니다. 계획 모델에는 시뮬레이터에서 관측한 두 블록의 좌표도 전달됩니다.
+동일한 지시를 서로 다른 두 배치에서 한 번씩 수행합니다. 매 시험마다 Isaac Sim 장면과 대화 이력을 새로 시작합니다. 개선된 실행기에서는 Qwen2.5 7B가 지시문에서 요청한 행동 순서를 생성합니다. 색상별 집기 행동에서는 SmolVLM2 기반 Waffle 정책이 현재 RGB와 로봇 상태에서 팔의 관절 목표를 예측합니다. 실행기는 좌우 지시를 해석할 때 시뮬레이터에서 관측한 두 블록의 좌표와 로봇 자세를 사용합니다. 턴별로 다시 계획할 때는 모델에도 현재 장면 상태를 전달합니다.
 
-[지시문별·배치별 성공률과 실패 로그](results/README.md)에서 각 시험의 관측 결과를 확인할 수 있습니다.
+[개선 전후 성공률과 재시험 로그](ordered-results/README.md)에서 동일한 8개 조건의 결과를 비교할 수 있습니다. [기존 실행의 실패 분석](results/README.md)에는 개선 전 턴별 기록이 있습니다.
 
 ## 재현 방법
 
@@ -20,6 +20,7 @@ python3 lessons/13-react/evaluation/score.py "$HOME/waffle_mpx/order-eval-01"
 
 ```bash
 python3 lessons/13-react/evaluation/score.py lessons/13-react/evaluation/results
+python3 lessons/13-react/evaluation/score.py lessons/13-react/evaluation/ordered-results
 ```
 
 ## 판정 방법

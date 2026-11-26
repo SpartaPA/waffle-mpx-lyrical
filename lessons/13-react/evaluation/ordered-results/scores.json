@@ -1,0 +1,234 @@
+[
+  {
+    "trial": "before-A",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "photo",
+      "place"
+    ],
+    "observed": [
+      "photo",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.009217917335277007,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "before-B",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "photo",
+      "place"
+    ],
+    "observed": [
+      "photo",
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.005053711507397314,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "after-A",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.010331021246711272,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "after-B",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.005235456045083364,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "bookends-A",
+    "success": true,
+    "target": "blue",
+    "expected": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.0059396969619669865,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "bookends-B",
+    "success": true,
+    "target": "blue",
+    "expected": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "observed": [
+      "photo",
+      "place",
+      "photo"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.003921734310225524,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "relative-A",
+    "success": true,
+    "target": "blue",
+    "expected": [
+      "place"
+    ],
+    "observed": [
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.2158,
+        -0.0226,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        0.0426,
+        0.05
+      ]
+    },
+    "final_error_m": 0.005390732788777416,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  },
+  {
+    "trial": "relative-B",
+    "success": true,
+    "target": "red",
+    "expected": [
+      "place"
+    ],
+    "observed": [
+      "place"
+    ],
+    "initial_positions": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    },
+    "final_error_m": 0.0017492855684535912,
+    "stop": "model_finished",
+    "first_failure": null,
+    "diagnostics": []
+  }
+]

@@ -20,15 +20,11 @@ class TaskPlannerTests(unittest.TestCase):
         )
 
     def test_robot_relative_reference_and_progress(self):
-        task = dict(
-            mode="ordered",
-            steps=[
-                dict(action="place", target="left"),
-                dict(action="photo", target="none"),
-            ],
-        )
+        task = {"steps": ["place_left", "photo"]}
         with patch("instruction_loop.ask_model", return_value=task):
-            planner = TaskPlanner("지시", self.state)
+            planner = TaskPlanner(
+                "왼쪽 블록을 초록 칸에 옮기고 사진을 찍어", self.state
+            )
         self.assertEqual(planner.next(self.state, [])["color"], "red")
         ok = {"result": {}}
         self.assertEqual(planner.next(self.state, [ok])["action"], "photo")
@@ -44,10 +40,15 @@ class TaskPlannerTests(unittest.TestCase):
             )
             model.assert_called_once()
 
-    def test_conditional_task_uses_live_planner(self):
+    def test_unrelated_decoded_token_falls_back(self):
         with patch(
-            "instruction_loop.ask_model", return_value=dict(mode="reactive", steps=[])
+            "instruction_loop.ask_model", return_value={"steps": ["place_right"]}
         ):
+            planner = TaskPlanner("팔 2번 관절을 움직여", self.state)
+        self.assertIsNone(planner.steps)
+
+    def test_conditional_task_uses_live_planner(self):
+        with patch("instruction_loop.ask_model", return_value=dict(steps=["reactive"])):
             planner = TaskPlanner("가까워지면 촬영해", self.state)
         with patch("instruction_loop.plan", return_value={"action": "photo"}) as model:
             self.assertEqual(planner.next(self.state, [])["action"], "photo")
