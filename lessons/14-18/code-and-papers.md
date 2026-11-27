@@ -37,7 +37,7 @@ response = wait(node,
 result = wait(node, done, 10)
 ```
 
-**실측 기록 읽기** 취소 기록의 목표는 −0.12 rad, 마지막 관측은 +0.0416 rad입니다. status=5와 목표 도달은 서로 다른 질문에 답합니다.
+**실측 기록 읽기** 취소 기록의 시작은 +0.12 rad이고 목표는 −0.12 rad, 마지막 관측은 +0.0416 rad입니다. status=5와 목표 도달은 서로 다른 질문에 답합니다.
 
 [원문과 코드 위치](https://github.com/SpartaPA/waffle-mpx-lyrical/blob/77c04d2fa6ab2e1c96a626c77c01dcc4166bab7a/lessons/14-18/action_client.py#L17-L65)
 
@@ -122,7 +122,7 @@ np.einsum('i,itj->tj',
 action = trajectory[step]
 ```
 
-**축을 추적합니다** 출력 한 행의 앞 두 축은 정지한 차체입니다. 뒤의 네 값은 팔의 절대각(rad), 마지막 값은 그리퍼 위치(m)입니다.
+**축을 추적합니다** 출력 한 행의 앞 두 축은 정지한 차체입니다. 3~6번째 값은 팔의 절대각(rad), 마지막 값은 그리퍼 위치(m)입니다.
 
 [원문과 코드 위치](https://github.com/SpartaPA/waffle-mpx-lyrical/blob/77c04d2fa6ab2e1c96a626c77c01dcc4166bab7a/learning/color_imitation.py#L46-L58)
 

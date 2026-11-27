@@ -1,0 +1,50 @@
+{
+  "trial": "budget2",
+  "success": false,
+  "target": "blue",
+  "expected": [
+    "photo",
+    "place",
+    "photo"
+  ],
+  "observed": [
+    "photo",
+    "place"
+  ],
+  "initial_positions": {
+    "red": [
+      0.2158,
+      -0.0226,
+      0.05
+    ],
+    "blue": [
+      0.2162,
+      0.0426,
+      0.05
+    ]
+  },
+  "final_error_m": 0.0038587562763149484,
+  "stop": "budget_exhausted",
+  "first_failure": {
+    "turn": null,
+    "stage": "photo_count",
+    "detail": "expected 2 photos, found ['photo-00.png']"
+  },
+  "diagnostics": [
+    {
+      "turn": null,
+      "stage": "photo_count",
+      "detail": "expected 2 photos, found ['photo-00.png']"
+    },
+    {
+      "turn": null,
+      "stage": "sequence",
+      "detail": "expected ['photo', 'place', 'photo'], got ['photo', 'place']"
+    },
+    {
+      "turn": null,
+      "stage": "termination",
+      "detail": "budget_exhausted"
+    }
+  ]
+}

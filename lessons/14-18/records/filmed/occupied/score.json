@@ -1,0 +1,15 @@
+{
+  "success": false,
+  "stop": "budget_exhausted",
+  "drift_m": 0.0,
+  "actions": [
+    "place",
+    "place",
+    "blocked",
+    "blocked",
+    "photo",
+    "blocked",
+    "blocked",
+    "blocked"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "instruction": "빨간 큐브부터 초록 칸에 안착시켜. 마지막 모습만 한 컷 찍어 줘.",
+  "stop": "model_finished",
+  "planner_calls": 1,
+  "vla_inferences": 1,
+  "declared_dependency_edges": 2,
+  "state": {
+    "base_xyz": [
+      -0.0135,
+      0.0002,
+      0.0004
+    ],
+    "yaw_rad": 0.0063,
+    "joints": [
+      0.0132,
+      0.7352,
+      -0.6283,
+      0.6145,
+      0.012
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.2515,
+        0.0091,
+        0.051
+      ],
+      "blue": [
+        0.216,
+        -0.0222,
+        0.05
+      ]
+    }
+  }
+}

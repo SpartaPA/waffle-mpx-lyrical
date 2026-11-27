@@ -14,6 +14,7 @@ p.add_argument("--output", type=Path, required=True)
 p.add_argument("--show", action="store_true")
 p.add_argument("--turns", type=int, default=8)
 p.add_argument("--seed", type=int, default=8601)
+p.add_argument("--occupied-goal", action="store_true", help="Initialize the blue cube on the Isaac goal pad")
 p.add_argument("--mirror-layout", action="store_true")
 p.add_argument("--record-frames", action="store_true", help="Save live D435 frames during Isaac arm motion")
 args = p.parse_args()
@@ -23,6 +24,8 @@ if not instruction:
 if not 1 <= args.turns <= 32:
     p.error("--turns must be between 1 and 32")
 if args.backend == "hardware":
+    if args.occupied_goal:
+        p.error("--occupied-goal configures the Isaac scene")
     if args.show:
         p.error("--show is an Isaac viewport option")
     subprocess.run(
@@ -60,6 +63,8 @@ cmd = [
     "--seed",
     str(args.seed),
 ]
+if args.occupied_goal:
+    cmd.append("--occupied-goal")
 if args.record_frames:
     cmd.append("--record-frames")
 if args.mirror_layout:

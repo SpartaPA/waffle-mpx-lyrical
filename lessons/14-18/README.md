@@ -10,6 +10,31 @@
 
 [ROS 2 · VLM · VLA 아키텍처](architecture.md)에서 배치도, 모델 호출 경계, 제어기 연결과 검증 범위를 확인합니다.
 
+## 녹화한 미션을 재현합니다
+
+교안 91~98쪽에서 실제 터미널 입력, Isaac 가상 D435 관측과 채점 결과를 재생합니다. 97쪽 영상에는 같은 지시를 빈 목표 칸과 점유된 칸에서 각각 실행한 장면이 이어집니다. 대기 시간을 줄이고 시뮬레이터가 저장한 관측을 발생 순서대로 재생합니다.
+
+| 쪽 | 미션과 시드 | 관측 결과 | 녹화 실행 기록 |
+|---|---|---|---|
+| 91 | 전후 사진 · 9201 · 2턴 | 3.86 mm에 놓았지만 마지막 사진이 빠져 실패했습니다. | [budget2](records/filmed/budget2) |
+| 92 | 같은 배치 · 6턴 | 4.88 mm에 놓고 사진 2장을 남겼습니다. | [budget6](records/filmed/budget6) |
+| 93 | 왼쪽 선택 · 9201 | 왼쪽 파랑을 옮겼습니다. | [leftA](records/filmed/leftA) |
+| 94 | 왼쪽 선택 · 9302 반전 | 왼쪽 빨강을 옮겼습니다. | [leftB](records/filmed/leftB) |
+| 95 | 운반 후 촬영 · 9302 반전 | 안착 뒤 한 장을 찍었습니다. | [afterB](records/filmed/afterB) |
+| 96 | 촬영 후 운반 · 9302 반전 | 운반 전 한 장을 찍었습니다. | [beforeB](records/filmed/beforeB) |
+| 97 | 목표 칸이 비었을 때만 운반 · 9302 반전 · 8턴 | 두 초기 조건 모두 첫 턴이 자기 자신에게 의존해 동작이 실행되지 않았습니다. 8턴 소진으로 실패했습니다. | [빈 칸](records/filmed/conditional) · [점유된 칸](records/filmed/occupied) |
+| 98 | 노란 대상 부재 · 9201 · 8턴 | blocked로 중단했습니다. 사진 0장, 저장한 두 큐브 좌표의 변화는 0 mm였습니다. | [missing](records/filmed/missing) |
+
+9회 중 6회가 각 지시의 판정 기준을 충족했습니다. 각 조건을 한 번씩 실행한 결과입니다. 각 폴더의 outcome.json에서 실제 한국어 지시를 복사합니다. turns.jsonl에서 decision과 evidence를 함께 읽어 요청한 행동이 실행됐는지 확인합니다. 초기·최종 관측 이미지는 계측용이며, 지시로 저장한 사진 수는 photo-*.png만 셉니다.
+
+[자유 지시 실행 환경](../13-react/free-instruction.md)을 준비한 뒤 저장소 루트에서 실행합니다. 매번 새 출력 경로를 선택합니다.
+
+```bash
+python3 lessons/13-react/free_command.py --scene ~/waffle_mpx/simulation/scene.usda --output /tmp/mission-left-b --seed 9302 --turns 6 --mirror-layout --record-frames
+```
+
+터미널에 “두 큐브 중 로봇 기준 왼쪽에 있는 것만 초록 칸에 옮겨. 사진은 찍지 마.”를 입력합니다. 시드 9201은 반전 옵션을 빼고, 점유 시험에서는 9302 반전 명령에 `--occupied-goal`을 추가합니다. 독립 채점의 운반 수평 오차 한계는 16 mm입니다. 원기록 [budget6](records/missions/budget6)에서 운반 직후 오차는 4.86 mm, 종료 시 저장 좌표로 다시 계산한 값은 4.90 mm입니다. 시드가 같아도 별도 실행의 물리 궤적 일치는 보장되지 않습니다. 2턴과 6턴 원기록 모두 운반 직후부터 오차가 다르므로 마지막 사진만으로 차이를 설명할 수 없습니다.
+
 ## 준비
 
 ```bash

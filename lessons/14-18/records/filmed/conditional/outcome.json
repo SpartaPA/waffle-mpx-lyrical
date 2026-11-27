@@ -1,0 +1,38 @@
+{
+  "instruction": "목표 칸이 비어 있으면 로봇 기준 왼쪽 큐브를 거기로 옮겨. 옮긴 다음에만 결과를 사진으로 한 장 남겨.",
+  "stop": "budget_exhausted",
+  "planner_calls": 9,
+  "vla_inferences": 0,
+  "declared_dependency_edges": 0,
+  "state": {
+    "base_xyz": [
+      -0.0015,
+      0.0,
+      0.0004
+    ],
+    "yaw_rad": -0.0004,
+    "joints": [
+      -0.0001,
+      0.0091,
+      0.0068,
+      -0.0012,
+      -0.0
+    ],
+    "goal_xy": [
+      0.254,
+      0.008
+    ],
+    "cubes_xyz": {
+      "red": [
+        0.213,
+        0.0422,
+        0.05
+      ],
+      "blue": [
+        0.2162,
+        -0.0222,
+        0.05
+      ]
+    }
+  }
+}

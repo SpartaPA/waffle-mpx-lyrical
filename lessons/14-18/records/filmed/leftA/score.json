@@ -1,0 +1,27 @@
+{
+  "trial": "leftA",
+  "success": true,
+  "target": "blue",
+  "expected": [
+    "place"
+  ],
+  "observed": [
+    "place"
+  ],
+  "initial_positions": {
+    "red": [
+      0.2158,
+      -0.0226,
+      0.05
+    ],
+    "blue": [
+      0.2162,
+      0.0426,
+      0.05
+    ]
+  },
+  "final_error_m": 0.005813776741499465,
+  "stop": "model_finished",
+  "first_failure": null,
+  "diagnostics": []
+}

@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "stop": "blocked",
+  "drift_m": 0.0,
+  "actions": [
+    "blocked"
+  ]
+}

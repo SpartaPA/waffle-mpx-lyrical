@@ -26,6 +26,7 @@ parser.add_argument('--show', action='store_true', help='Open the Isaac Sim view
 parser.add_argument('--capture-rgbd', action='store_true', help='Save the starting aligned depth and optical-to-world calibration for the grounding lab')
 parser.add_argument('--record-frames', action='store_true', help='Save the RGB frame at each policy step')
 parser.add_argument('--free-instruction', help='Use a live instruction and observation loop on this scene')
+parser.add_argument('--occupied-goal', action='store_true', help='Start with the blue cube on the goal in free-instruction mode')
 parser.add_argument('--mirror-layout', action='store_true', help='Reflect free-instruction cube positions around y=0.010 m')
 parser.add_argument('--turns', type=int, default=8)
 args = parser.parse_args()
@@ -201,6 +202,9 @@ def run(worker):
         for color, xyz in next(layouts()).items():
             if args.mirror_layout:
                 xyz[1] = .020 - xyz[1]
+            if args.occupied_goal and color == 'blue':
+                xyz[:2] = GOAL
+                xyz[2] += .001
             cubes[color].set_world_poses(xyz.tolist(), [1.,0.,0.,0.])
             cubes[color].set_velocities([0.]*3,[0.]*3)
         advance(.5)

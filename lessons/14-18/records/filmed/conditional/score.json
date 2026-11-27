@@ -1,0 +1,184 @@
+{
+  "trial": "conditional",
+  "success": false,
+  "target": "red",
+  "expected": [
+    "place",
+    "photo"
+  ],
+  "observed": [
+    "place",
+    "place",
+    "vla",
+    "place",
+    "place",
+    "place",
+    "place"
+  ],
+  "initial_positions": {
+    "red": [
+      0.213,
+      0.0422,
+      0.05
+    ],
+    "blue": [
+      0.2162,
+      -0.0222,
+      0.05
+    ]
+  },
+  "final_error_m": 0.053391385072874824,
+  "stop": "budget_exhausted",
+  "first_failure": {
+    "turn": 0,
+    "stage": "lift",
+    "detail": "red peak lift 0.0000 m"
+  },
+  "diagnostics": [
+    {
+      "turn": 0,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 0,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 0,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 1,
+      "stage": "sequence",
+      "detail": "expected photo, got place"
+    },
+    {
+      "turn": 1,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 1,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 1,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 2,
+      "stage": "sequence",
+      "detail": "expected finish, got vla"
+    },
+    {
+      "turn": 2,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 3,
+      "stage": "sequence",
+      "detail": "expected finish, got place"
+    },
+    {
+      "turn": 3,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 3,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 3,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 4,
+      "stage": "sequence",
+      "detail": "expected finish, got place"
+    },
+    {
+      "turn": 4,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 4,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 4,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 5,
+      "stage": "sequence",
+      "detail": "expected finish, got place"
+    },
+    {
+      "turn": 5,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 5,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 5,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 6,
+      "stage": "sequence",
+      "detail": "expected finish, got place"
+    },
+    {
+      "turn": 6,
+      "stage": "lift",
+      "detail": "red peak lift 0.0000 m"
+    },
+    {
+      "turn": 6,
+      "stage": "placement",
+      "detail": "red center error 0.0534 m; height 0.0500 m"
+    },
+    {
+      "turn": 6,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": 7,
+      "stage": "execution",
+      "detail": "Unresolved predecessor"
+    },
+    {
+      "turn": null,
+      "stage": "photo_count",
+      "detail": "expected 1 photos, found []"
+    },
+    {
+      "turn": null,
+      "stage": "termination",
+      "detail": "budget_exhausted"
+    },
+    {
+      "turn": null,
+      "stage": "final_state",
+      "detail": "red center error 0.0534 m"
+    }
+  ]
+}

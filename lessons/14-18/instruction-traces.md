@@ -117,5 +117,5 @@ turn 2 → photo-02.png
 turn 3 → finish
 ```
 
-운반 턴 직후의 오차는 4.86 mm입니다. 독립 채점기는 종료 상태의 좌표로 4.9 mm를 계산합니다. 종료 선언과 지시 충족 여부를 나눠 확인합니다. [코드](https://github.com/SpartaPA/waffle-mpx-lyrical/blob/e96ce170cd9eabf5e44fb0eceb016af132c1d4ad/sim/instruction_loop.py#L302-L329)
+운반 턴 직후의 오차는 4.86 mm입니다. 독립 채점기는 소수 넷째 자리(m)로 저장된 종료 좌표에서 4.90 mm를 계산합니다. 종료 선언과 지시 충족 여부를 나눠 확인합니다. [코드](https://github.com/SpartaPA/waffle-mpx-lyrical/blob/e96ce170cd9eabf5e44fb0eceb016af132c1d4ad/sim/instruction_loop.py#L302-L329)
 
